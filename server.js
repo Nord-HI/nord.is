@@ -29,11 +29,14 @@ app.get('/style.css', (req, res) => {
   }
 });
 
+app.get('/ping', (req, res) => {
+  res.send('pong');
+});
+
 // Serve index page
 app.get('*', (req, res) => {
   res.sendFile(__dirname + '/build/index.html');
 });
-
 
 /*************************************************************
  *
@@ -71,6 +74,5 @@ const port = process.env.PORT || 8080;
 const server = app.listen(port, () => {
   const host = server.address().address;
   const port = server.address().port;
-
   console.log('Essential React listening at http://%s:%s', host, port);
 });
