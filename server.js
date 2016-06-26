@@ -29,7 +29,7 @@ app.get('/style.css', (req, res) => {
   }
 });
 
-app.get('/ping', (req, res) => {
+app.get('/api/ping', (req, res) => {
   res.send('pong');
 });
 
