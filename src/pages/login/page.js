@@ -1,6 +1,6 @@
-import React from 'react';
-import styles from './style.css';
-import LoginForm from './components/LoginForm';
+import React from 'react'
+import styles from './style.css'
+import LoginForm from './components/LoginForm'
 
 export default function HomePage() {
   return (
@@ -9,5 +9,5 @@ export default function HomePage() {
       <h2>Vefsíða félags tölvunarfræði og hugbúnaðarverkfræðinema</h2>
       <LoginForm />
     </div>
-  );
+  )
 }

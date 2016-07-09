@@ -1,78 +1,59 @@
-import express from 'express';
-const app = express();
+import express from 'express'
+import bodyParser from 'body-parser'
+import api from './server/api'
 
+const app = express()
 
-/************************************************************
- *
- * Express routes for:
- *   - app.js
- *   - style.css
- *   - index.html
- *
- ************************************************************/
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // Serve application file depending on environment
 app.get('/app.js', (req, res) => {
   if (process.env.PRODUCTION) {
-    res.sendFile(__dirname + '/build/app.js');
+    res.sendFile(`${__dirname}/build/app.js`)
   } else {
-    res.redirect('//localhost:9090/build/app.js');
+    res.redirect('//localhost:9090/build/app.js')
   }
-});
+})
 
 // Serve aggregate stylesheet depending on environment
 app.get('/style.css', (req, res) => {
   if (process.env.PRODUCTION) {
-    res.sendFile(__dirname + '/build/style.css');
+    res.sendFile(`${__dirname}/build/style.css`)
   } else {
-    res.redirect('//localhost:9090/build/style.css');
+    res.redirect('//localhost:9090/build/style.css')
   }
-});
+})
 
-app.get('/api/ping', (req, res) => {
-  res.send('pong');
-});
+app.use('/api', api)
 
 // Serve index page
 app.get('*', (req, res) => {
-  res.sendFile(__dirname + '/build/index.html');
-});
-
-/*************************************************************
- *
- * Webpack Dev Server
- *
- * See: http://webpack.github.io/docs/webpack-dev-server.html
- *
- *************************************************************/
+  res.sendFile(`${__dirname}/build/index.html`)
+})
 
 if (!process.env.PRODUCTION) {
-  const webpack = require('webpack');
-  const WebpackDevServer = require('webpack-dev-server');
-  const config = require('./webpack.local.config');
+  const webpack = require('webpack') // eslint-disable-line global-require
+  const WebpackDevServer = require('webpack-dev-server') // eslint-disable-line global-require
+  const config = require('./webpack.local.config') // eslint-disable-line global-require
 
   new WebpackDevServer(webpack(config), {
     publicPath: config.output.publicPath,
     hot: true,
     noInfo: true,
-    historyApiFallback: true
-  }).listen(9090, 'localhost', (err, result) => {
+    historyApiFallback: true,
+  }).listen(9090, 'localhost', (err) => {
     if (err) {
-      console.log(err);
+      console.log(err)
     }
-  });
+  })
 }
 
-
-/******************
- *
- * Express server
- *
- *****************/
-
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8080
 const server = app.listen(port, () => {
-  const host = server.address().address;
-  const port = server.address().port;
-  console.log('Essential React listening at http://%s:%s', host, port);
-});
+  console.log(
+    'Essential React listening at http://%s:%s',
+    server.address().address,
+    server.address().port
+  )
+})
