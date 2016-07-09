@@ -1,10 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-
-export default ({children}) => {
-  return (
-    <div id="container">
-      {children}
-    </div>
-  );
-}
+export default ({ children }) => (
+  <div id="container">
+    {children}
+  </div>
+)

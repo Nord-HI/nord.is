@@ -1,26 +1,30 @@
-import React from 'react';
+import React from 'react'
 // import styles from './LoginForm.css';
-import fetch from 'isomorphic-fetch';
+import fetch from 'isomorphic-fetch'
+import Client from '../../../util/Client'
 
 export default class LoginForm extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       username: '',
       password: '',
-    };
+    }
   }
   onUsernameChange(event) {
-    this.setState({ username: event.target.value });
+    this.setState({ username: event.target.value })
   }
   onPasswordChange(event) {
-    this.setState({ password: event.target.value });
+    this.setState({ password: event.target.value })
   }
   handleSubmit(event) {
-    event.preventDefault();
-    fetch('api/login', { method: 'POST' })
-      .then(res => console.log(res))
-      .catch(err => console.error(err));
+    event.preventDefault()
+    Client.post('api/login', {
+      name: this.state.username,
+      password: this.state.password,
+    })
+    .then(res => console.log(res))
+    .catch(err => console.error(err))
   }
   render() {
     return (
@@ -39,6 +43,6 @@ export default class LoginForm extends React.Component {
         />
         <input type="submit" />
       </form>
-    );
+    )
   }
 }
