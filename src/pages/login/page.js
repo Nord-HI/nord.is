@@ -1,20 +1,13 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
 import styles from './style.css';
+import LoginForm from './components/LoginForm';
 
-
-export default class LoginPage extends React.Component {
-  signUp() {
-    browserHistory.push('/home');
-  }
-  
-  render() {
-    return (
-      <div className={styles.content}>
-        <h1 className={styles.heading}>Login Page</h1>
-        <p className={styles.lead}>Create an account to get started!</p>
-        <button className={styles.signUpButton} onClick={this.signUp}>Sign up</button>
-      </div>
-    );
-  }
+export default function HomePage() {
+  return (
+    <div className={styles.content}>
+      <h1>Nörd.is</h1>
+      <h2>Vefsíða félags tölvunarfræði og hugbúnaðarverkfræðinema</h2>
+      <LoginForm />
+    </div>
+  );
 }

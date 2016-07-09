@@ -1,15 +1,14 @@
 import React from 'react';
 import styles from './style.css';
-import request from 'superagent'
-
+import fetch from 'isomorphic-fetch';
 
 export default class LoginPage extends React.Component {
-  componentWillMount (){
-    request
-      .get('/api/ping')
-      .end((err, res) => {
-        console.log(res);
-      })
+  componentWillMount() {
+    fetch('/api/ping')
+    .then(response => response.text())
+    .then(responseText => {
+      console.log(responseText);
+    });
   }
   render() {
     return (
