@@ -8,8 +8,7 @@ const user = {
 }
 
 router.post('/', (req, res) => {
-  console.info(req.body)
-  res.send('okkkk')
+  res.json(user)
 })
 
 export default router

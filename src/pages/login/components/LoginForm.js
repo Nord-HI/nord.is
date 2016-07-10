@@ -22,7 +22,7 @@ export default class LoginForm extends React.Component {
       name: this.state.username,
       password: this.state.password,
     })
-    .then(res => console.log(res))
+    .then(res => res.json())
     .catch(err => console.error(err))
   }
   render() {
