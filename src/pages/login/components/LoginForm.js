@@ -1,6 +1,5 @@
 import React from 'react'
 // import styles from './LoginForm.css';
-import fetch from 'isomorphic-fetch'
 import Client from '../../../util/Client'
 
 export default class LoginForm extends React.Component {
