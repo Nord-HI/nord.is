@@ -10,13 +10,11 @@ logs
 .nyc_output
 coverage
 
-# Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
-
 # Dependency directory
 node_modules
 
-# Users Environment Variables
-.lock-wscript
+# idk
+.DS_Store
 
-.idea
+# The enviroment variables nord.is uses
+.env

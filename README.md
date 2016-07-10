@@ -1,9 +1,7 @@
-![](https://dl.dropboxusercontent.com/u/1803181/essential-react-logo.png)
-
-[![Travis branch](https://img.shields.io/travis/pheuter/essential-react.svg?style=flat-square)](https://travis-ci.org/pheuter/essential-react)
-[![Coveralls](https://img.shields.io/coveralls/pheuter/essential-react.svg?style=flat-square)](https://coveralls.io/r/pheuter/essential-react)
-[![David](https://img.shields.io/david/pheuter/essential-react.svg?style=flat-square)](https://david-dm.org/pheuter/essential-react)
-[![npm](https://img.shields.io/npm/v/essential-react.svg?style=flat-square)](https://www.npmjs.com/package/essential-react)
+[![Build Status](https://travis-ci.org/Nord-HI/nord.is.svg?branch=master)](https://travis-ci.org/Nord-HI/nord.is)
+[![Coverage Status](https://coveralls.io/repos/github/Nord-HI/nord.is/badge.svg?branch=master)](https://coveralls.io/github/Nord-HI/nord.is?branch=master)
+[![Dependency Status](https://david-dm.org/Nord-HI/nord.is.svg)](https://david-dm.org/Nord-HI/nord.is)
+[![devDependency Status](https://david-dm.org/Nord-HI/nord.is/dev-status.svg)](https://david-dm.org/Nord-HI/nord.is#info=devDependencies)
 
 ---
 
