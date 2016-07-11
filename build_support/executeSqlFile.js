@@ -1,11 +1,15 @@
 require('dotenv').config()
 const pgp = require('pg-promise')(/*options*/)
 const fs = require('fs')
-var argv = require('optimist')
+const argv = require('optimist')
   .usage('Usage: $0 -f [string]')
-  .demand('f').alias('f', 'file').describe('f', 'path to sql file')
+  .demand('f')
+  .alias('f', 'file')
+  .describe('f', 'path to sql file')
   .argv
 
+/* Read the file corresponding to the filename which was passed to this script
+   with the `-f` command-line flag and converts it to a string */
 const schemaString = fs.readFileSync(argv.f).toString()
 
 const db = pgp({
@@ -14,6 +18,8 @@ const db = pgp({
   password: process.env.DB_PASS,
 })
 
+/* `db.any` executes a querystring and expectes anything to be returned.
+    That is, there are no constraints on what should be returned. */
 db.any(schemaString)
   .then(() => console.info('Successfully executed query'))
   .catch((err) => console.error(err))
