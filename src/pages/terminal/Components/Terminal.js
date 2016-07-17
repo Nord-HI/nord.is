@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styles from './Terminal.css'
+import KeyManager from './KeyManager'
 
 export default class App extends Component {
 
@@ -18,10 +19,16 @@ export default class App extends Component {
 
   componentDidMount() {
     this.inputNode.focus()
+    KeyManager.add('x', () => this.sigterm())
+    KeyManager.add('Enter', () => this.onEnterPress())
+    KeyManager.add('⌘+k', () => this.clearHistory())
   }
 
   componentDidUpdate() {
     this.scrollToBottom()
+  }
+
+  componentWillUnmount() {
   }
 
   clearHistory() {
@@ -32,6 +39,10 @@ export default class App extends Component {
     this.terminalNode.scrollTop = this.terminalNode.scrollHeight
   }
 
+  sigterm() {
+    console.log('sigterm')
+  }
+
   listFiles() {
     this.addHistory('README.md')
   }
@@ -40,23 +51,21 @@ export default class App extends Component {
     return () => window.open(url, '_blank')
   }
 
-  handleInput(e) {
-    if (e.key === 'Enter') {
-      const inputText = this.inputNode.value
-      const inputArray = inputText.split(' ')
-      const input = inputArray[0]
-      const arg = inputArray[1]
-      const command = this.state.commands[input]
+  onEnterPress() {
+    const inputText = this.inputNode.value
+    const inputArray = inputText.split(' ')
+    const input = inputArray[0]
+    const arg = inputArray[1]
+    const command = this.state.commands[input]
 
-      this.addHistory(`${this.state.prompt} ${inputText}`)
+    this.addHistory(`${this.state.prompt}${inputText}`)
 
-      if (command === undefined) {
-        this.addHistory(`sh: command not found: ${input}`)
-      } else {
-        command(arg)
-      }
-      this.clearInput()
+    if (command === undefined) {
+      this.addHistory(`sh: command not found: ${input}`)
+    } else {
+      command(arg)
     }
+    this.clearInput()
   }
 
   clearInput() {
@@ -88,12 +97,13 @@ export default class App extends Component {
         {output}
         <p className={styles.currentLine}>
           <span className={styles.prompt}>{this.state.prompt}</span>
-          <input
-            className={styles.input}
-            type="text"
-            onKeyPress={(event) => this.handleInput(event)}
-            ref={(node) => { this.inputNode = node }}
-          />
+          <KeyManager>
+            <input
+              className={styles.input}
+              type="text"
+              ref={(node) => { this.inputNode = node }}
+            />
+          </KeyManager>
         </p>
       </div>
     )

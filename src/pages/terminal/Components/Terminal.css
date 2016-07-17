@@ -1,7 +1,6 @@
 .inputArea {
-  width: 95%;
-  margin: 20px auto;
   height: 245px;
+  flex: 0 0 95%;
   overflow-y: auto;
   font-size: 12px;
 }
