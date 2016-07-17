@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import styles from './Terminal.css'
 
 export default class App extends Component {
 
@@ -11,16 +12,24 @@ export default class App extends Component {
         source: this.openLink('https://github.com/prakhar1989/react-term/blob/master/src/app.js'),
       },
       history: [],
-      prompt: '$',
+      prompt: '$ ',
     }
   }
 
   componentDidMount() {
-    this.terminalNode.focus()
+    this.inputNode.focus()
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom()
   }
 
   clearHistory() {
     this.setState({ history: [] })
+  }
+
+  scrollToBottom() {
+    this.terminalNode.scrollTop = this.terminalNode.scrollHeight
   }
 
   listFiles() {
@@ -33,7 +42,7 @@ export default class App extends Component {
 
   handleInput(e) {
     if (e.key === 'Enter') {
-      const inputText = this.terminalNode.value
+      const inputText = this.inputNode.value
       const inputArray = inputText.split(' ')
       const input = inputArray[0]
       const arg = inputArray[1]
@@ -51,7 +60,7 @@ export default class App extends Component {
   }
 
   clearInput() {
-    this.terminalNode.value = ''
+    this.inputNode.value = ''
   }
 
   addHistory(output) {
@@ -63,23 +72,27 @@ export default class App extends Component {
   }
 
   handleClick() {
-    this.terminalNode.focus()
+    this.inputNode.focus()
   }
 
   render() {
-    const output = this.state.history.map((op, i) => <p key={i}>{op}</p>)
+    const output = this.state.history.map((op, i) => (
+      <p key={i} className={styles.output}>{op}</p>
+    ))
     return (
       <div
-        className="input-area"
+        className={styles.inputArea}
+        ref={(node) => { this.terminalNode = node }}
         onClick={() => this.handleClick()}
       >
         {output}
-        <p>
-          <span className="prompt">{this.state.prompt}</span>
+        <p className={styles.currentLine}>
+          <span className={styles.prompt}>{this.state.prompt}</span>
           <input
+            className={styles.input}
             type="text"
             onKeyPress={(event) => this.handleInput(event)}
-            ref={(node) => { this.terminalNode = node }}
+            ref={(node) => { this.inputNode = node }}
           />
         </p>
       </div>

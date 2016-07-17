@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Computer.css'
-// import Terminal from './Terminal'
+import Terminal from './Terminal'
 import appleLogo from '../../../assets/static/images/apple-logo.png'
 
 export default function Computer() {
@@ -9,7 +9,9 @@ export default function Computer() {
       <main className={styles.computerContainer}>
         <div className={styles.screenContainer}>
           <div className={styles.screenFrame}>
-            <div className={styles.screen}></div>
+            <div className={styles.screen}>
+              <Terminal />
+            </div>
           </div>
         </div>
         <div className={styles.bodyDecor}>
