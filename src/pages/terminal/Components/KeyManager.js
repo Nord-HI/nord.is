@@ -1,18 +1,16 @@
 import React, { Component } from 'react'
 
-const aliasMap = new Map([
+const aliasKeyMap = new Map([
   [['ctrl', 'control'], 'control'],
   [['meta', '⌘', 'cmd', 'command'], 'meta'],
   [['enter'], 'enter'],
 ])
 const knownKeyCombinations = new Map()
 let keyChain = []
-const keyChainTTL = 300
-let keyChainCountDownId = null
 
 const normalizeKey = key => {
   let normalizedKey = key.toLowerCase()
-  for (const [aliasKeyArr, aliasValue] of aliasMap) {
+  for (const [aliasKeyArr, aliasValue] of aliasKeyMap) {
     if (aliasKeyArr.some(aliasKey => aliasKey === key)) {
       normalizedKey = aliasValue
       break
@@ -33,8 +31,6 @@ export default class KeyManager extends Component {
   }
 
   handleKeyDown(e) {
-    clearTimeout(keyChainCountDownId)
-    keyChainCountDownId = setTimeout(() => { keyChain = [] }, keyChainTTL)
     keyChain.push(e.key)
     const keyCombination = keyChain.map(key => normalizeKey(key)).join('+')
     console.info('[KeyManager] key combination: ', keyCombination)
@@ -45,10 +41,17 @@ export default class KeyManager extends Component {
     }
   }
 
+  handleKeyUp(e) {
+    keyChain = keyChain.filter(key => key !== e.key)
+  }
+
   render() {
     const { children } = this.props
     return (
-      <span onKeyDown={(event) => this.handleKeyDown(event)}>
+      <span
+        onKeyDown={(event) => this.handleKeyDown(event)}
+        onKeyUp={(event) => this.handleKeyUp(event)}
+      >
         {children}
       </span>
     )
