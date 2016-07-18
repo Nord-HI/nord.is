@@ -6,7 +6,7 @@ const aliasKeyMap = new Map([
   [['enter'], 'enter'],
 ])
 const knownKeyCombinations = new Map()
-let keyChain = []
+let pressedKeys = []
 
 const normalizeKey = key => {
   let normalizedKey = key.toLowerCase()
@@ -30,19 +30,23 @@ export default class KeyManager extends Component {
     knownKeyCombinations.set(normalizeKeyComb(keyComb), callback)
   }
 
+  componentWillUnmount() {
+    knownKeyCombinations.clear()
+    pressedKeys = []
+  }
+
   handleKeyDown(e) {
-    keyChain.push(e.key)
-    const keyCombination = keyChain.map(key => normalizeKey(key)).join('+')
-    console.info('[KeyManager] key combination: ', keyCombination)
+    pressedKeys.push(e.key)
+    const keyCombination = pressedKeys.map(key => normalizeKey(key)).join('+')
     const callback = knownKeyCombinations.get(keyCombination)
     if (callback) {
-      keyChain = []
+      pressedKeys = []
       callback()
     }
   }
 
   handleKeyUp(e) {
-    keyChain = keyChain.filter(key => key !== e.key)
+    pressedKeys = pressedKeys.filter(key => key !== e.key)
   }
 
   render() {

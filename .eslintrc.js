@@ -1,8 +1,9 @@
 module.exports = {
-  extends: "airbnb",
+  parsers: 'babel-eslint',
+  extends: 'airbnb',
   rules: {
-    "new-cap": 0,
-    semi: [2, "never"],
-    "react/prop-types": 0,
+    'new-cap': 0,
+    semi: [2, 'never'],
+    'react/prop-types': 0,
   }
 }
