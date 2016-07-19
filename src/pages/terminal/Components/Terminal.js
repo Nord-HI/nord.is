@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styles from './Terminal.css'
 import KeyManager from './KeyManager'
+import Client from 'utils/Client'
 
 export default class App extends Component {
 
@@ -10,7 +11,8 @@ export default class App extends Component {
       commands: {
         clear: this.clearHistory.bind(this),
         ls: this.listFiles.bind(this),
-        source: this.openLink('https://github.com/prakhar1989/react-term/blob/master/src/app.js'),
+        cat: (fileName) => this.catFile(fileName),
+        source: this.openLink('https://github.com/Nord-HI/nord.is'),
       },
       history: [],
       prompt: '$ ',
@@ -28,9 +30,6 @@ export default class App extends Component {
 
   componentDidUpdate() {
     this.scrollToBottom()
-  }
-
-  componentWillUnmount() {
   }
 
   onEnterPress() {
@@ -69,8 +68,20 @@ export default class App extends Component {
     this.clearInput()
   }
 
-  listFiles() {
-    this.addHistory('README.md')
+  listFiles(directory = '.') {
+    Client.get(`api/loginTerminal/ls?dir=${directory}`)
+      .then(res => res.json())
+      .then(files => files.reduce((acc, curr, index) => {
+        const deliminator = index % 3 === 0 && index !== 0 ? '\n' : '\t'
+        return `${acc}${curr}${deliminator}`
+      }, ''))
+      .then(contents => this.addHistory(contents))
+  }
+
+  catFile(fileName) {
+    Client.get(`api/loginTerminal/cat?file=${fileName}`)
+      .then(res => res.text())
+      .then(contents => this.addHistory(contents))
   }
 
   openLink(url) {
@@ -91,7 +102,7 @@ export default class App extends Component {
 
   render() {
     const output = this.state.history.map((op, i) => (
-      <p key={i} className={styles.output}>{op}</p>
+      <pre key={i} className={styles.output}>{op}</pre>
     ))
     return (
       <div

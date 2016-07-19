@@ -8,6 +8,10 @@ export default class KeyManager extends Component {
       [['ctrl', 'control'], 'control'],
       [['meta', '⌘', 'cmd', 'command'], 'meta'],
       [['enter'], 'enter'],
+      [['arrowup', '↑'], 'arrowup'],
+      [['arrowdown', '↓'], 'arrowdown'],
+      [['arrowleft', '←'], 'arrowleft'],
+      [['arrowright', '→'], 'arrowright'],
     ])
     this.keyCombinations = new Map(
       props.keyCombinations.map(

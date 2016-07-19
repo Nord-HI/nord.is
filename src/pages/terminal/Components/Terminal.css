@@ -45,4 +45,6 @@
   font-family: monospace;
   margin: 0;
   line-height: 1.2;
+  word-break: break-all;
+  white-space: pre-wrap;
 }

@@ -1,8 +1,8 @@
 import fetch from 'isomorphic-fetch'
 
 const sendRequest = (url, method, body) => (
-  fetch('api/login', {
-    method: 'POST',
+  fetch(url, {
+    method,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
