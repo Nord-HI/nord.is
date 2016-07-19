@@ -49,6 +49,7 @@ module.exports = {
 
   // Automatically transform files with these extensions
   resolve: {
+    modulesDirectories: ['node_modules', 'src'],
     extensions: ['', '.js', '.jsx', '.css']
   },
 

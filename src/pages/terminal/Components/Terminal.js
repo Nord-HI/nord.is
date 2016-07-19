@@ -16,9 +16,9 @@ export default class App extends Component {
       prompt: '$ ',
     }
     this.knownKeyCombinations = [
-      ['x', () => this.sigterm()],
       ['Enter', () => this.onEnterPress()],
       ['⌘+k', () => this.clearHistory()],
+      ['ctrl+c', () => this.sigterm()],
     ]
   }
 
@@ -41,6 +41,8 @@ export default class App extends Component {
     const command = this.state.commands[input]
 
     this.addHistory(`${this.state.prompt}${inputText}`)
+    // If the command line was empty, stop
+    if (inputText === '') return
 
     if (command === undefined) {
       this.addHistory(`sh: command not found: ${input}`)
@@ -63,7 +65,8 @@ export default class App extends Component {
   }
 
   sigterm() {
-    console.log('sigterm')
+    this.addHistory(`${this.state.prompt}${this.inputNode.value}`)
+    this.clearInput()
   }
 
   listFiles() {

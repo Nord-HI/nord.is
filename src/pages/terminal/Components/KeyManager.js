@@ -22,7 +22,6 @@ export default class KeyManager extends Component {
     const keyCombination = this.pressedKeys.map(key => this.normalizeKey(key)).join('+')
     const callback = this.keyCombinations.get(keyCombination)
     if (callback) {
-      this.pressedKeys = []
       callback(event)
     }
   }
