@@ -15,13 +15,15 @@ export default class App extends Component {
       history: [],
       prompt: '$ ',
     }
+    this.knownKeyCombinations = [
+      ['x', () => this.sigterm()],
+      ['Enter', () => this.onEnterPress()],
+      ['⌘+k', () => this.clearHistory()],
+    ]
   }
 
   componentDidMount() {
     this.inputNode.focus()
-    KeyManager.add('x', () => this.sigterm())
-    KeyManager.add('Enter', () => this.onEnterPress())
-    KeyManager.add('⌘+k', () => this.clearHistory())
   }
 
   componentDidUpdate() {
@@ -29,26 +31,6 @@ export default class App extends Component {
   }
 
   componentWillUnmount() {
-  }
-
-  clearHistory() {
-    this.setState({ history: [] })
-  }
-
-  scrollToBottom() {
-    this.terminalNode.scrollTop = this.terminalNode.scrollHeight
-  }
-
-  sigterm() {
-    console.log('sigterm')
-  }
-
-  listFiles() {
-    this.addHistory('README.md')
-  }
-
-  openLink(url) {
-    return () => window.open(url, '_blank')
   }
 
   onEnterPress() {
@@ -68,8 +50,28 @@ export default class App extends Component {
     this.clearInput()
   }
 
+  clearHistory() {
+    this.setState({ history: [] })
+  }
+
   clearInput() {
     this.inputNode.value = ''
+  }
+
+  scrollToBottom() {
+    this.terminalNode.scrollTop = this.terminalNode.scrollHeight
+  }
+
+  sigterm() {
+    console.log('sigterm')
+  }
+
+  listFiles() {
+    this.addHistory('README.md')
+  }
+
+  openLink(url) {
+    return () => window.open(url, '_blank')
   }
 
   addHistory(output) {
@@ -97,7 +99,9 @@ export default class App extends Component {
         {output}
         <p className={styles.currentLine}>
           <span className={styles.prompt}>{this.state.prompt}</span>
-          <KeyManager>
+          <KeyManager
+            keyCombinations={this.knownKeyCombinations}
+          >
             <input
               className={styles.input}
               type="text"

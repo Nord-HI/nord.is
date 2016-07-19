@@ -1,60 +1,58 @@
 import React, { Component } from 'react'
 
-const aliasKeyMap = new Map([
-  [['ctrl', 'control'], 'control'],
-  [['meta', '⌘', 'cmd', 'command'], 'meta'],
-  [['enter'], 'enter'],
-])
-const knownKeyCombinations = new Map()
-let pressedKeys = []
-
-const normalizeKey = key => {
-  let normalizedKey = key.toLowerCase()
-  for (const [aliasKeyArr, aliasValue] of aliasKeyMap) {
-    if (aliasKeyArr.some(aliasKey => aliasKey === key)) {
-      normalizedKey = aliasValue
-      break
-    }
-  }
-  return normalizedKey
-}
-
-const normalizeKeyComb = (keyComb) => {
-  const keys = keyComb.split('+')
-  return keys.map(key => normalizeKey(key)).join('+')
-}
-
 export default class KeyManager extends Component {
 
-  static add(keyComb, callback) {
-    knownKeyCombinations.set(normalizeKeyComb(keyComb), callback)
+  constructor(props) {
+    super(props)
+    this.aliasKeyMap = new Map([
+      [['ctrl', 'control'], 'control'],
+      [['meta', '⌘', 'cmd', 'command'], 'meta'],
+      [['enter'], 'enter'],
+    ])
+    this.keyCombinations = new Map(
+      props.keyCombinations.map(
+        keyComb => [this.normalizeKeyComb(keyComb[0]), keyComb[1]]
+      )
+    )
+    this.pressedKeys = []
   }
 
-  componentWillUnmount() {
-    knownKeyCombinations.clear()
-    pressedKeys = []
-  }
-
-  handleKeyDown(e) {
-    pressedKeys.push(e.key)
-    const keyCombination = pressedKeys.map(key => normalizeKey(key)).join('+')
-    const callback = knownKeyCombinations.get(keyCombination)
+  onKeyDown(event) {
+    this.pressedKeys = [...this.pressedKeys, event.key]
+    const keyCombination = this.pressedKeys.map(key => this.normalizeKey(key)).join('+')
+    const callback = this.keyCombinations.get(keyCombination)
     if (callback) {
-      pressedKeys = []
-      callback()
+      this.pressedKeys = []
+      callback(event)
     }
   }
 
-  handleKeyUp(e) {
-    pressedKeys = pressedKeys.filter(key => key !== e.key)
+  onKeyUp(event) {
+    this.pressedKeys = this.pressedKeys.filter(key => key !== event.key)
+  }
+
+  normalizeKey(key) {
+    let normalizedKey = key.toLowerCase()
+    for (const [aliasKeyArr, aliasValue] of this.aliasKeyMap) {
+      if (aliasKeyArr.some(aliasKey => aliasKey === key)) {
+        normalizedKey = aliasValue
+        break
+      }
+    }
+    return normalizedKey
+  }
+
+  normalizeKeyComb(keyComb) {
+    const keys = keyComb.split('+')
+    return keys.map(key => this.normalizeKey(key)).join('+')
   }
 
   render() {
     const { children } = this.props
     return (
       <span
-        onKeyDown={(event) => this.handleKeyDown(event)}
-        onKeyUp={(event) => this.handleKeyUp(event)}
+        onKeyDown={(event) => this.onKeyDown(event)}
+        onKeyUp={(event) => this.onKeyUp(event)}
       >
         {children}
       </span>
