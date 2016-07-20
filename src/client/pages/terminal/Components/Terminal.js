@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styles from './Terminal.css'
 import KeyManager from './KeyManager'
-import Client from 'utils/Client'
+import Client from 'client/utils/Client'
 
 export default class App extends Component {
 

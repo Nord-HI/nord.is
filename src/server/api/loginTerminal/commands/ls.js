@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import path from 'path'
 import fs from 'fs'
-import { normalizePathSuffix } from '../../../utils/securityUtils'
+import { normalizePathSuffix } from 'server/utils/securityUtils'
 
 const router = Router()
 const rootFsDir = path.join(__dirname, '../fileSystem')

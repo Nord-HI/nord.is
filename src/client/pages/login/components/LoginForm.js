@@ -1,6 +1,6 @@
 import React from 'react'
 // import styles from './LoginForm.css';
-import Client from '../../../utils/Client'
+import Client from 'client/utils/Client'
 
 export default class LoginForm extends React.Component {
   constructor(props) {

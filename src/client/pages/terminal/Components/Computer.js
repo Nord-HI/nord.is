@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './Computer.css'
 import Terminal from './Terminal'
-import appleLogo from '../../../assets/static/images/apple-logo.png'
+import appleLogo from 'client/assets/static/images/apple-logo.png'
 
 export default function Computer() {
   return (

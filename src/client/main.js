@@ -4,10 +4,10 @@ import ReactDOM from 'react-dom'
 import { Router, browserHistory } from 'react-router'
 
 // Routes
-import Routes from './common/components/Routes'
+import Routes from 'client/common/components/Routes'
 
 // Base styling
-import './common/base.css'
+import 'client/common/base.css'
 
 // Render the router
 ReactDOM.render((
