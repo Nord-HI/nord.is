@@ -51,9 +51,5 @@ if (!process.env.PRODUCTION) {
 
 const port = process.env.PORT || 8080
 const server = app.listen(port, () => {
-  console.log(
-    'Essential React listening at http://%s:%s',
-    server.address().address,
-    server.address().port
-  )
+  console.log(`Nord server listening at http://localhost:${server.address().port}`)
 })

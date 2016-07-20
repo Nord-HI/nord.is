@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import styles from './Terminal.css'
+import KeyManager from './KeyManager'
+import Client from 'utils/Client'
 
 export default class App extends Component {
 
@@ -8,50 +11,81 @@ export default class App extends Component {
       commands: {
         clear: this.clearHistory.bind(this),
         ls: this.listFiles.bind(this),
-        source: this.openLink('https://github.com/prakhar1989/react-term/blob/master/src/app.js'),
+        cat: (fileName) => this.catFile(fileName),
+        source: this.openLink('https://github.com/Nord-HI/nord.is'),
       },
       history: [],
-      prompt: '$',
+      prompt: '$ ',
     }
+    this.knownKeyCombinations = [
+      ['Enter', () => this.onEnterPress()],
+      ['⌘+k', () => this.clearHistory()],
+      ['ctrl+c', () => this.sigterm()],
+    ]
   }
 
   componentDidMount() {
-    this.terminalNode.focus()
+    this.inputNode.focus()
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom()
+  }
+
+  onEnterPress() {
+    const inputText = this.inputNode.value
+    const inputArray = inputText.split(' ')
+    const input = inputArray[0]
+    const arg = inputArray[1]
+    const command = this.state.commands[input]
+
+    this.addHistory(`${this.state.prompt}${inputText}`)
+    // If the command line was empty, stop
+    if (inputText === '') return
+
+    if (command === undefined) {
+      this.addHistory(`sh: command not found: ${input}`)
+    } else {
+      command(arg)
+    }
+    this.clearInput()
   }
 
   clearHistory() {
     this.setState({ history: [] })
   }
 
-  listFiles() {
-    this.addHistory('README.md')
+  clearInput() {
+    this.inputNode.value = ''
+  }
+
+  scrollToBottom() {
+    this.terminalNode.scrollTop = this.terminalNode.scrollHeight
+  }
+
+  sigterm() {
+    this.addHistory(`${this.state.prompt}${this.inputNode.value}`)
+    this.clearInput()
+  }
+
+  listFiles(directory = '.') {
+    Client.get(`api/loginTerminal/ls?dir=${directory}`)
+      .then(res => res.json())
+      .then(files => files.reduce((acc, curr, index) => {
+        const deliminator = index % 3 === 0 && index !== 0 ? '\n' : '\t'
+        return `${acc}${curr}${deliminator}`
+      }, ''))
+      .then(contents => this.addHistory(contents))
+  }
+
+  catFile(fileName) {
+    Client.get(`api/loginTerminal/cat?file=${fileName}`)
+      .then(res => res.text())
+      .then(contents => this.addHistory(contents))
   }
 
   openLink(url) {
     return () => window.open(url, '_blank')
-  }
-
-  handleInput(e) {
-    if (e.key === 'Enter') {
-      const inputText = this.terminalNode.value
-      const inputArray = inputText.split(' ')
-      const input = inputArray[0]
-      const arg = inputArray[1]
-      const command = this.state.commands[input]
-
-      this.addHistory(`${this.state.prompt} ${inputText}`)
-
-      if (command === undefined) {
-        this.addHistory(`sh: command not found: ${input}`)
-      } else {
-        command(arg)
-      }
-      this.clearInput()
-    }
-  }
-
-  clearInput() {
-    this.terminalNode.value = ''
   }
 
   addHistory(output) {
@@ -63,24 +97,31 @@ export default class App extends Component {
   }
 
   handleClick() {
-    this.terminalNode.focus()
+    this.inputNode.focus()
   }
 
   render() {
-    const output = this.state.history.map((op, i) => <p key={i}>{op}</p>)
+    const output = this.state.history.map((op, i) => (
+      <pre key={i} className={styles.output}>{op}</pre>
+    ))
     return (
       <div
-        className="input-area"
+        className={styles.inputArea}
+        ref={(node) => { this.terminalNode = node }}
         onClick={() => this.handleClick()}
       >
         {output}
-        <p>
-          <span className="prompt">{this.state.prompt}</span>
-          <input
-            type="text"
-            onKeyPress={(event) => this.handleInput(event)}
-            ref={(node) => { this.terminalNode = node }}
-          />
+        <p className={styles.currentLine}>
+          <span className={styles.prompt}>{this.state.prompt}</span>
+          <KeyManager
+            keyCombinations={this.knownKeyCombinations}
+          >
+            <input
+              className={styles.input}
+              type="text"
+              ref={(node) => { this.inputNode = node }}
+            />
+          </KeyManager>
         </p>
       </div>
     )
