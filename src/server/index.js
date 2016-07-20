@@ -1,6 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import api from './src/server/api'
+import api from 'server/api'
+import path from 'path'
 
 const app = express()
 
@@ -10,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // Serve application file depending on environment
 app.get('/app.js', (req, res) => {
   if (process.env.PRODUCTION) {
-    res.sendFile(`${__dirname}/build/app.js`)
+    res.sendFile(path.resolve(`${__dirname}/../../build/app.js`))
   } else {
     res.redirect('//localhost:9090/build/app.js')
   }
@@ -19,7 +20,7 @@ app.get('/app.js', (req, res) => {
 // Serve aggregate stylesheet depending on environment
 app.get('/style.css', (req, res) => {
   if (process.env.PRODUCTION) {
-    res.sendFile(`${__dirname}/build/style.css`)
+    res.sendFile(path.resolve(`${__dirname}/../../build/style.css`))
   } else {
     res.redirect('//localhost:9090/build/style.css')
   }
@@ -29,13 +30,13 @@ app.use('/api', api)
 
 // Serve index page
 app.get('*', (req, res) => {
-  res.sendFile(`${__dirname}/build/index.html`)
+  res.sendFile(path.resolve(`${__dirname}/../../build/index.html`))
 })
 
 if (!process.env.PRODUCTION) {
   const webpack = require('webpack') // eslint-disable-line global-require
   const WebpackDevServer = require('webpack-dev-server') // eslint-disable-line global-require
-  const config = require('./webpack.local.config') // eslint-disable-line global-require
+  const config = require('../../webpack.local.config') // eslint-disable-line global-require
 
   new WebpackDevServer(webpack(config), {
     publicPath: config.output.publicPath,
