@@ -5,9 +5,9 @@
     "postinstall": "npm run build",
     "start": "node start.js",
     "build": "webpack -p --progress --config webpack.production.config.js",
-    "test": "NODE_ENV=test nyc ava",
+    "test": "NODE_ENV=test nyc --require babel-register ava",
     "test-watch": "NODE_ENV=test ava --watch",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "coveralls": "nyc report --require babel-register --reporter=text-lcov | coveralls",
     "clean": "rm build/app.js",
     "lint": "eslint --ext \"js\" ."
   },
