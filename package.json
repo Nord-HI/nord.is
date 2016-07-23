@@ -1,8 +1,4 @@
 {
-  "name": "nord",
-  "version": "1.0.0",
-  "description": "A minimal skeleton for building testable React apps using Babel",
-  "main": "src/main.js",
   "scripts": {
     "postinstall": "npm run build",
     "start": "node start.js",
@@ -13,22 +9,6 @@
     "clean": "rm build/app.js",
     "lint": "eslint --ext \"js\" ."
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/pheuter/essential-react.git"
-  },
-  "keywords": [
-    "skeleton",
-    "template",
-    "react",
-    "quickstart"
-  ],
-  "author": "Mark Fayngersh",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/pheuter/essential-react/issues"
-  },
-  "homepage": "https://github.com/pheuter/essential-react",
   "ava": {
     "verbose": true,
     "failFast": true,
