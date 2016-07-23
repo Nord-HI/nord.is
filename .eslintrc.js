@@ -4,6 +4,8 @@ module.exports = {
   rules: {
     'new-cap': 0,
     'no-param-reassign': 0,
+    // underscore is used to represent an unused function parameter
+    'no-unused-vars': [2, { 'args': 'after-used', 'argsIgnorePattern': '^_' }],
     semi: [2, 'never'],
     'react/prop-types': 0,
   },
@@ -15,6 +17,6 @@ module.exports = {
     },
   },
   globals: {
-    c: true,
+    c: true, // console is aliased to c in server/index.js
   },
 }
