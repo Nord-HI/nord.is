@@ -19,7 +19,7 @@ export default class App extends Component {
     }
     this.knownKeyCombinations = [
       ['Enter', () => this.onEnterPress()],
-      ['⌘+k', () => this.clearHistory()],
+      ['ctrl+k', () => this.clearHistory()],
       ['ctrl+c', () => this.sigterm()],
     ]
   }
