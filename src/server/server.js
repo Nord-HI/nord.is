@@ -33,6 +33,6 @@ export default () => {
   return app
 }
 
-if (!process.env.PRODUCTION & !process.env === 'TEST') {
+if (!process.env.PRODUCTION & process.env.NODE_ENV !== 'test') {
   startWebpackDevServer()
 }

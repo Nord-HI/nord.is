@@ -9,6 +9,7 @@ export default function startWebpackDevServer() {
     noInfo: true,
     historyApiFallback: true,
   }).listen(9090, 'localhost', (err) => {
+    console.log(`Webpack dev server listening at http://localhost:${9090}`)
     if (err) {
       console.log(err)
     }
