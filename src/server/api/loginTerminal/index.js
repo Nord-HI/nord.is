@@ -1,10 +1,13 @@
-import { Router } from 'express'
+import Router from 'koa-router'
+
 import ls from './commands/ls'
 import cat from './commands/cat'
 
-const router = Router()
+export default function loginTerminal() {
+  const router = new Router({ prefix: '/loginTerminal' })
+  router
+    .use(ls().routes())
+    .use(cat().routes())
 
-router.use('/ls', ls)
-router.use('/cat', cat)
-
-export default router
+  return router
+}
