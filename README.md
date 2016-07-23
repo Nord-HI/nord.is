@@ -5,28 +5,16 @@
 
 ---
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+The source code of https://nord.is.
 
-A minimal skeleton for building testable React apps using Babel.
-
-- [Design Goals](#design-goals)
 - [Getting Started](#getting-started)
 - [Commands](#commands)
-  - [server](#server)
+  - [start](#start)
   - [build](#build)
   - [test](#test)
   - [coveralls](#coveralls)
   - [clean](#clean)
 - [Changelog](#changelog)
-
-## Design Goals
-
-- Use fewer tools (no yeoman, gulp, bower, etc...)
-- Babel 6 with Webpack and Hot Loader
-- Fast testing with mocked-out DOM
-- Import css files as class names
-- Separate [Smart and Dumb](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) components
-- No specific implementation of Flux or data fetching patterns
 
 
 ## Getting Started
@@ -38,19 +26,19 @@ $ npm install
 Start the local dev server:
 
 ```sh
-$ npm run server
+$ npm start
 ```
 
 Navigate to **http://localhost:8080/** to view the app.
 
 ## Commands
 
-A core philosophy of this skeleton app is to keep the tooling to a minimum. For this reason, you can find all the commands in the `scripts` section of [package.json](package.json).
+You can find all the commands in the `scripts` section of [package.json](package.json).
 
-### server
+### start
 
 ```sh
-$ npm run server
+$ npm start
 ```
 
 **Input:** `src/main.jsx`
@@ -65,7 +53,7 @@ It also automatically includes source maps, allowing you to browse code and set 
 $ npm run build
 ```
 
-**Input:** `src/main.jsx`
+**Input:** `src/client/main.jsx`
 
 **Output:** `build/app.js`
 

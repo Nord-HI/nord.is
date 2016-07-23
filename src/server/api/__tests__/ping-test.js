@@ -8,7 +8,7 @@ test.before(async () => {
   server = app()
 })
 
-test('healthy should 200', async (t) => {
-  const res = await request(server).get('/healthy')
-  t.is(res.status, 200)
+test('api/ping should respond with `pong`', async (t) => {
+  const res = await request(server).get('/api/ping')
+  t.is(res.text, 'pong')
 })
