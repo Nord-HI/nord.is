@@ -1,12 +1,12 @@
-import { Router } from 'express'
-import ping from './ping'
-import login from './login'
+import Router from 'koa-router'
+
 import loginTerminal from './loginTerminal'
 
-const router = Router()
+export default function api() {
+  const router = new Router({ prefix: '/api' })
 
-router.use('/ping', ping)
-router.use('/login', login)
-router.use('/loginTerminal', loginTerminal)
+  router
+    .use(loginTerminal().routes())
 
-export default router
+  return router
+}
