@@ -4,8 +4,7 @@ import path from 'path'
 import Router from 'koa-router'
 import sendFile from 'koa-sendfile'
 import api from './api'
-import healthCheck from './routes/healthCheck'
-import staticAssets from './routes/staticAssets'
+import staticAssets from './api/staticAssets'
 import startWebpackDevServer from './startWebpackDevServer'
 
 export default () => {
@@ -18,7 +17,6 @@ export default () => {
 
   // Routes
   app
-    .use(healthCheck().routes())
     .use(staticAssets().routes())
     .use(api().routes())
     .use(router.allowedMethods())
