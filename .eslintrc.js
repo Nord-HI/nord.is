@@ -7,10 +7,10 @@ module.exports = {
     semi: [2, 'never'],
     'react/prop-types': 0,
   },
-  'settings': {
+  settings: {
     'import/resolver': {
-      'webpack': {
-        'config': 'webpack.local.config.js',
+      webpack: {
+        config: 'webpack.local.config.js',
       },
     },
   },

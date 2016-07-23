@@ -32,17 +32,13 @@
   "ava": {
     "verbose": true,
     "failFast": true,
-    "files": [
-      "src/**/__tests__/**/*.js"
-    ],
+    "files": ["src/**/__tests__/**/*.js"],
     "source": [
       "src/**/*",
       "!build/**/*",
       "!build_support/**/*"
     ],
-    "require": [
-      "babel-register"
-    ],
+    "require": ["babel-register"],
     "babel": "inherit"
   },
   "devDependencies": {
