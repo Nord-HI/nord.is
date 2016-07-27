@@ -5,6 +5,7 @@
     "stage-0"
   ],
   "plugins": [
-    "transform-runtime"
+    "transform-runtime",
+    ["resolver", { "resolveDirs": ["src", "node_modules"] }]
   ]
 }

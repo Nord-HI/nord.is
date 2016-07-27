@@ -16,11 +16,11 @@ module.exports = {
   // Efficiently evaluate modules with source maps
   devtool: "eval",
 
-  // Set entry point to ./src/main and include necessary files for hot load
+  // Set entry point to ./src/client/main and include necessary files for hot load
   entry:  [
     "webpack-dev-server/client?http://localhost:9090",
     "webpack/hot/only-dev-server",
-    "./src/main"
+    "./src/client/main"
   ],
 
   // This will not actually create a bundle.js file in ./build. It is used
@@ -49,7 +49,8 @@ module.exports = {
 
   // Automatically transform files with these extensions
   resolve: {
-    extensions: ['', '.js', '.jsx', '.css']
+    extensions: ['', '.js', '.jsx', '.css'],
+    modulesDirectories: ['node_modules', 'src'],
   },
 
   // Additional plugins for CSS post processing using postcss-loader

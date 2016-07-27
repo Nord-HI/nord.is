@@ -1,0 +1,50 @@
+.inputArea {
+  height: 245px;
+  flex: 0 0 95%;
+  overflow-y: auto;
+  font-size: 12px;
+}
+.inputArea::-webkit-scrollbar {
+    width: 8px;
+}
+.inputArea::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+.inputArea::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #00fe00;
+}
+
+.currentLine {
+  margin: 0;
+  line-height: 1.2;
+}
+
+.prompt {
+  color: #00fe00;
+  font-family: monospace;
+  line-height: 1.2;
+}
+
+.input {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: #222;
+  color: #00fe00;
+  width: 93%;
+  font-family: monospace;
+  font-size: 12px;
+}
+.input:focus {
+  outline: 0;
+}
+
+.output {
+  color: #00fe00;
+  font-family: monospace;
+  margin: 0;
+  line-height: 1.2;
+  word-break: break-all;
+  white-space: pre-wrap;
+}
