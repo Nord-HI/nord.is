@@ -8,6 +8,7 @@ export default function startWebpackDevServer() {
     hot: true,
     noInfo: true,
     historyApiFallback: true,
+    stats: { colors: true },
   }).listen(9090, 'localhost', (err) => {
     c.log(`Webpack dev server listening at http://localhost:${9090}`)
     if (err) {
