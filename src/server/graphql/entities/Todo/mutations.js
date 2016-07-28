@@ -1,12 +1,9 @@
 import { GraphQLBoolean, GraphQLID, GraphQLNonNull, GraphQLString, GraphQLList } from 'graphql'
-
 import {
   cursorForObjectInConnection, fromGlobalId,
   mutationWithClientMutationId, toGlobalId,
 } from 'graphql-relay'
-
 import * as db from '../../database'
-
 import { GraphQLUser } from '../User'
 import { GraphQLTodo, GraphQLTodoEdge } from './index'
 
