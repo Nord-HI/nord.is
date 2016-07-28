@@ -1,14 +1,8 @@
-import {
-  GraphQLObjectType, GraphQLSchema,
-} from 'graphql'
-
-import {
-  getViewer,
-} from './database'
-
+import { GraphQLObjectType, GraphQLSchema } from 'graphql'
+import { getViewer } from './database'
+import { GraphQLUser } from './entities/User'
 import { nodeField } from './interfaces'
 import * as todoMutations from './entities/Todo/mutations'
-import { GraphQLUser } from './entities/User'
 
 const Root = new GraphQLObjectType({
   name: 'Root',
