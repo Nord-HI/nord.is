@@ -8,7 +8,7 @@ const rootFsDir = path.join(__dirname, '../fileSystem')
 export default function ls() {
   const router = new Router()
 
-  router.get('ls', async ctx => {
+  router.get('ls', ctx => {
     const directory = normalizePathSuffix(ctx.query.dir || '')
     const directoryPath = path.join(rootFsDir, directory)
     try {
