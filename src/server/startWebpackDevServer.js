@@ -5,6 +5,7 @@ export default function startWebpackDevServer() {
 
   new WebpackDevServer(webpack(config), {
     publicPath: config.output.publicPath,
+    devtool: 'cheap-module-eval-source-map',
     hot: true,
     noInfo: true,
     historyApiFallback: true,
