@@ -13,6 +13,10 @@ import GenericNotFound from 'client/pages/404'
 import ViewerQueries from 'client/common/queries/ViewerQueries'
 import 'client/common/base.css'
 
+Relay.injectNetworkLayer(
+  new Relay.DefaultNetworkLayer('/api/graphql')
+)
+
 // Render the router
 ReactDOM.render((
   <Router

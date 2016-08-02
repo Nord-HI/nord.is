@@ -3,7 +3,6 @@ import path from 'path'
 import { schema } from '../src/server/graphql/schema'
 import { graphql } from 'graphql'
 import { introspectionQuery, printSchema } from 'graphql/utilities'
-
 // Save JSON of full schema introspection for Babel Relay Plugin to use
 (async () => {
   const result = await (graphql(schema, introspectionQuery))
@@ -13,10 +12,10 @@ import { introspectionQuery, printSchema } from 'graphql/utilities'
       JSON.stringify(result.errors, null, 2)
     )
   } else {
-    fs.writeFileSync(
-      path.join(__dirname, '../build/schema.json'),
-      JSON.stringify(result, null, 2)
-    )
+    const pathToFile = path.join(__dirname, '../build/schema.json')
+    const fileDescriptor = fs.openSync(pathToFile, 'w')
+    fs.closeSync(fileDescriptor)
+    fs.writeFileSync(pathToFile, JSON.stringify(result, null, 2))
   }
 })()
 

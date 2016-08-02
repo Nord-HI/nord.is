@@ -8,7 +8,7 @@
     "build": "webpack -p --progress --config webpack.production.config.js",
     "test": "NODE_ENV=test ava",
     "test-watch": "NODE_ENV=test ava --watch",
-    "update-schema": "node build_support/updateSchemaStart.js",
+    "update-schema": "NODE_ENV=script node build_support/updateSchemaStart.js",
     "clean": "rm build/app.js",
     "lint": "eslint --ext \"js\" ."
   },
