@@ -5,14 +5,22 @@ import Router from 'koa-router'
 import sendFile from 'koa-sendfile'
 import api from './api'
 import staticAssets from './api/staticAssets'
+import startWebpackDevServer from './startWebpackDevServer'
+
+// Define globals
+global.c = console
+global.__DEV__ = process.env.NODE_ENV === 'development' // eslint-disable-line no-underscore-dangle
+
 
 export default () => {
   const app = new Koa()
   const router = new Router()
 
   // Middleware
-  app
-    .use(logger())
+  if (__DEV__) {
+    app
+      .use(logger())
+  }
 
   // Routes
   app
@@ -28,4 +36,9 @@ export default () => {
     })
 
   return app
+}
+
+// Start Webpack dev server if we are in development mode
+if (__DEV__) {
+  startWebpackDevServer(5000)
 }
