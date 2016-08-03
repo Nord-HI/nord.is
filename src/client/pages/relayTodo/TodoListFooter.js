@@ -1,5 +1,5 @@
 import { IndexLink, Link } from 'react-router'
-import RemoveCompletedTodosMutation from 'client/common/mutations/RemoveCompletedTodosMutation'
+import RemoveCompletedTodosMutation from './mutations/RemoveCompletedTodosMutation'
 import React from 'react'
 import Relay from 'react-relay'
 
@@ -22,13 +22,13 @@ class TodoListFooter extends React.Component {
         </span>
         <ul className="filters">
           <li>
-            <IndexLink to="/" activeClassName="selected">All</IndexLink>
+            <IndexLink to="/home" activeClassName="selected">All</IndexLink>
           </li>
           <li>
-            <Link to="/active" activeClassName="selected">Active</Link>
+            <Link to="/home/active" activeClassName="selected">Active</Link>
           </li>
           <li>
-            <Link to="/completed" activeClassName="selected">Completed</Link>
+            <Link to="/home/completed" activeClassName="selected">Completed</Link>
           </li>
         </ul>
         {numCompletedTodos > 0 &&

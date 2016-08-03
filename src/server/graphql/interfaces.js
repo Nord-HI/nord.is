@@ -3,6 +3,7 @@ import { GraphQLUser, GraphQLTodo, getTodo, getUser } from './schema'
 import { Todo, User } from './database'
 
 export const { nodeInterface, nodeField } = nodeDefinitions(
+  // Function which tells GraphQL how to get the `node` of an entity from an id
   (globalId) => {
     const { type, id } = fromGlobalId(globalId)
     if (type === 'Todo') {
@@ -12,11 +13,12 @@ export const { nodeInterface, nodeField } = nodeDefinitions(
     }
     return null
   },
+  // Function which tells GraphQL how to transform our store layer models to graphql models
   (obj) => {
     if (obj instanceof Todo) {
-      return GraphQLTodo // eslint-disable-line no-use-before-define
+      return GraphQLTodo
     } else if (obj instanceof User) {
-      return GraphQLUser // eslint-disable-line no-use-before-define
+      return GraphQLUser
     }
     return null
   }

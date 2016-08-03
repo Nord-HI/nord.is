@@ -6,11 +6,12 @@ import { Router, Route, IndexRoute, browserHistory, applyRouterMiddleware } from
 import useRelay from 'react-router-relay'
 import App from 'client/common/components/App'
 import LoginPage from 'client/pages/login/page'
-import HomePage from 'client/pages/home/page'
+import RelayTodo from 'client/pages/relayTodo'
+import TodoList from 'client/pages/relayTodo/TodoList'
 import PingPage from 'client/pages/ping/page'
 import Terminal from 'client/pages/terminal'
 import GenericNotFound from 'client/pages/404'
-import ViewerQueries from 'client/common/queries/ViewerQueries'
+import ViewerQueries from 'client/pages/relayTodo/queries/ViewerQueries'
 import 'client/common/base.css'
 
 Relay.injectNetworkLayer(
@@ -18,7 +19,7 @@ Relay.injectNetworkLayer(
 )
 
 // Render the router
-ReactDOM.render((
+ReactDOM.render(
   <Router
     history={browserHistory}
     environment={Relay.Store}
@@ -26,10 +27,21 @@ ReactDOM.render((
   >
     <Route path="/" component={App}>
       <IndexRoute component={LoginPage} />
-      <Route path="home" component={HomePage} queries={ViewerQueries} />
+      <Route path="home" component={RelayTodo} queries={ViewerQueries}>
+        <IndexRoute
+          component={TodoList}
+          queries={ViewerQueries}
+          prepareParams={() => ({ status: 'any' })}
+        />
+        <Route
+          path=":status"
+          component={TodoList}
+          queries={ViewerQueries}
+        />
+      </Route>
       <Route path="terminal" component={Terminal} />
       <Route path="ping" component={PingPage} />
       <Route path="*" component={GenericNotFound} />
     </Route>
   </Router>
-), document.getElementById('app'))
+  , document.getElementById('app'))

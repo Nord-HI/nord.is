@@ -1,8 +1,9 @@
 import React from 'react'
 import Relay from 'react-relay'
-import AddTodoMutation from 'client/common/mutations/AddTodoMutation'
+import AddTodoMutation from './mutations/AddTodoMutation'
 import TodoListFooter from './TodoListFooter'
 import TodoTextInput from './TodoTextInput'
+import styles from './style.css'
 
 class TodoApp extends React.Component {
   handleTextInputSave = (text) => {
@@ -14,11 +15,9 @@ class TodoApp extends React.Component {
     const hasTodos = this.props.viewer.totalCount > 0
     return (
       <div>
-        <section className="todoapp">
+        <section className={styles.container}>
           <header className="header">
-            <h1>
-              todos
-            </h1>
+            <h1>Relay todos</h1>
             <TodoTextInput
               autoFocus
               className="new-todo"
@@ -36,19 +35,6 @@ class TodoApp extends React.Component {
             />
           }
         </section>
-        <footer className="info">
-          <p>
-            Double-click to edit a todo
-          </p>
-          <p>
-            Created by the <a href="https://facebook.github.io/relay/">
-              Relay team
-            </a>
-          </p>
-          <p>
-            Part of <a href="http://todomvc.com">TodoMVC</a>
-          </p>
-        </footer>
       </div>
     )
   }
