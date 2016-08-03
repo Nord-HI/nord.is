@@ -8,7 +8,7 @@ const rootFsDir = path.join(__dirname, '../fileSystem')
 export default function cat() {
   const router = new Router()
 
-  router.get('cat', async ctx => {
+  router.get('cat', ctx => {
     const file = normalizePathSuffix(ctx.query.file)
     const filePath = path.join(rootFsDir, file)
     try {
