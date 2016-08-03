@@ -7,6 +7,10 @@ import * as db from '../../database'
 import { GraphQLUser } from '../User'
 import { GraphQLTodo, GraphQLTodoEdge } from './index'
 
+/* `mutationWithClientMutationId` takes a name, input fields, output fields,
+    and a mutation method to map from the input fields to the output fields,
+    performing the mutation along the way. It then creates and returns a field
+    configuration that can be used as a top-level field on the mutation type. */
 export const GraphQLRemoveCompletedTodosMutation = mutationWithClientMutationId({
   name: 'RemoveCompletedTodos',
   outputFields: {

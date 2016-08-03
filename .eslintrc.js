@@ -18,5 +18,6 @@ module.exports = {
   },
   globals: {
     c: true, // console is aliased to c in server/index.js
+    __DEV__: true, // boolean, true if NODE_ENV=DEVELOPEMT
   },
 }

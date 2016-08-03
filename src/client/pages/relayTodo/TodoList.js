@@ -56,8 +56,6 @@ export default Relay.createContainer(TodoList, {
     if (status === 'active' || status === 'completed') {
       nextStatus = status
     } else {
-      // This matches the Backbone example, which displays all todos on an
-      // invalid route.
       nextStatus = 'any'
     }
     return {

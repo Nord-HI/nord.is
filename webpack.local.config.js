@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+require('dotenv').config()
 
 /**
  * This is the Webpack configuration file for local development. It contains
@@ -35,7 +36,10 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new ExtractTextPlugin('style.css', { allChunks: true })
+    new ExtractTextPlugin('style.css', { allChunks: true }),
+    new webpack.DefinePlugin({
+      __DEV__: process.env.TIRE === 'DEVELOPMENT'
+    }),
   ],
 
   // Transform source code using Babel and React Hot Loader

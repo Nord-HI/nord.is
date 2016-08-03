@@ -1,8 +1,11 @@
 import startServer from './server'
 import config from './config'
 import startWebpackDevServer from './startWebpackDevServer'
+require('dotenv').config()
+
 
 global.c = console
+global.__DEV__ = process.env.TIRE === 'DEVELOPMENT' // eslint-disable-line no-underscore-dangle
 
 // Start HTTP server
 const server = startServer(config)

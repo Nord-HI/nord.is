@@ -9,8 +9,8 @@ export default () => {
 
   graphQLServer.use(convert(graphQLHTTP({
     schema,
-    pretty: true,
-    graphiql: true,
+    pretty: __DEV__,
+    graphiql: __DEV__,
   })))
 
   return graphQLServer
