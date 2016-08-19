@@ -1,0 +1,10 @@
+nord:
+  build: .
+  environment:
+    NODE_ENV: development
+  ports:
+    - '8080:8080'
+  command: echo 'ready'
+  volumes:
+    - .:/home/stjori/nord/source
+    - /home/stjori/nord/source/node_modules
