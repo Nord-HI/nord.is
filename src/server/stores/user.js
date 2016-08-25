@@ -7,8 +7,7 @@ const db = pgp({
 
 export const createUser = () =>
   db.any(
-    'insert into person(given_name, family_name, about) values (${givenName}, ${familyName}, ${about})',
-    { givenName: 'Kristo', familyName: 'Tryggvi', about: 'lorem ipsum about' }
+    `SELECT "register_person"('name', 'ugla_user')`
   )
   .then(() => pgp.end())
   .then(() => 'ok')

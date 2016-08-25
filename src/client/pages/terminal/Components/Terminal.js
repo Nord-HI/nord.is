@@ -13,6 +13,8 @@ export default class App extends Component {
         ls: this.listFiles.bind(this),
         cat: (fileName) => this.catFile(fileName),
         source: this.openLink('https://github.com/Nord-HI/nord.is'),
+        help: this.help.bind(this),
+        hjalp: this.hjalp.bind(this),
       },
       history: [],
       prompt: '$ ',
@@ -80,6 +82,18 @@ export default class App extends Component {
 
   catFile(fileName) {
     Client.get(`api/loginTerminal/cat?file=${fileName}`)
+      .then(res => res.text())
+      .then(contents => this.addHistory(contents))
+  }
+
+  help() {
+    Client.get('api/loginTerminal/cat?file=help.txt')
+      .then(res => res.text())
+      .then(contents => this.addHistory(contents))
+  }
+
+  hjalp() {
+    Client.get('api/loginTerminal/cat?file=hjalp.txt')
       .then(res => res.text())
       .then(contents => this.addHistory(contents))
   }

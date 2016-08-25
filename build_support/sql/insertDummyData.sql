@@ -1,21 +1,21 @@
 -------------------------------------------------------------------------------
 -- Sample Data
 
-insert into person (id, given_name, family_name, about) values
-  (1, 'Kathryn', 'Ramirez', null),
-  (2, 'Johnny', 'Tucker', null),
-  (3, 'Nancy', 'Diaz', null),
-  (4, 'Russell', 'Gardner', null),
-  (5, 'Ann', 'West', null),
-  (6, 'Joe', 'Cruz', null),
-  (7, 'Scott', 'Torres', null),
-  (8, 'David', 'Bell', null),
-  (9, 'Carl', 'Ward', null),
-  (10, 'Jonathan', 'Campbell', null),
-  (11, 'Beverly', 'Kelly', null),
-  (12, 'Kelly', 'Reed', null),
-  (13, 'Nicholas', 'Perry', null),
-  (14, 'Carol', 'Taylor', null);
+insert into person (id, name, ugla_user) values
+  (1, 'Kathryn', 'username'),
+  (2, 'Johnny', 'username'),
+  (3, 'Nancy', 'username'),
+  (4, 'Russell', 'username'),
+  (5, 'Ann', 'username'),
+  (6, 'Joe', 'username'),
+  (7, 'Scott', 'username'),
+  (8, 'David', 'username'),
+  (9, 'Carl', 'username'),
+  (10, 'Jonathan', 'username'),
+  (11, 'Beverly', 'username'),
+  (12, 'Kelly', 'username'),
+  (13, 'Nicholas', 'username'),
+  (14, 'Carol', 'username');
 
 alter sequence person_id_seq restart with 15;
 

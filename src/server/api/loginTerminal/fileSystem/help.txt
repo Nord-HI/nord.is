@@ -1,0 +1,9 @@
+Welcome to login terminal of nord.is
+Thank you for selecting the help option.
+Here is a list of the commands you are authorized to use:
+
+cat <file>  Read the context of the file
+clear       Clears all text on the screen
+help        List of commands
+ls          List of files in fileSystem
+source      Open the github link to this project
