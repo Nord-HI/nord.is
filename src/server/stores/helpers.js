@@ -1,7 +1,6 @@
-import { pgp, initDb } from './pg'
+import { db } from './pg'
 const fs = require('fs')
 const path = require('path')
-const db = initDb()
 
 export const createDatabase = () => {
   const schemaString = fs.readFileSync(
@@ -9,7 +8,6 @@ export const createDatabase = () => {
   ).toString()
   return db.any(schemaString)
     .catch((err) => console.error(err))
-    .then(() => pgp.end())
 }
 
 export const insertDummyData = () => {
@@ -18,7 +16,6 @@ export const insertDummyData = () => {
   ).toString()
   return db.any(schemaString)
     .catch((err) => console.error(err))
-    .then(() => pgp.end())
 }
 
 export const dropDb = () => {
@@ -27,5 +24,4 @@ export const dropDb = () => {
   ).toString()
   return db.any(schemaString)
     .catch((err) => console.error(err))
-    .then(() => pgp.end())
 }
