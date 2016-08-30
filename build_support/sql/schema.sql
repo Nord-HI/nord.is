@@ -22,7 +22,7 @@ set search_path = nord, nord_utils, public;
 create table person (
   id               serial not null primary key,
   name             varchar(64) not null,
-  ugla_user        varchar(64) not null,
+  ugla_id           varchar(10) not null unique,
   created_at       timestamp,
   updated_at       timestamp
 );
@@ -30,7 +30,7 @@ create table person (
 comment on table person is 'A user of the forum.';
 comment on column person.id is 'The primary key for the person.';
 comment on column person.name is 'The person’s first name.';
-comment on column person.ugla_user is 'Username on ugla.hi.is';
+comment on column person.ugla_id is 'Username on ugla.hi.is';
 comment on column person.created_at is 'The time this person was created.';
 comment on column person.updated_at is 'The latest time this person was updated.';
 
@@ -107,14 +107,14 @@ comment on function search_posts(varchar) is 'Returns posts containing a given s
 -- `person` row and an associated `person_account` row.
 create function register_person(
   name varchar,
-  ugla_user varchar
+  ugla_id varchar
 ) returns person as $$
 declare
   row person;
 begin
   -- Insert the person’s public profile data.
-  insert into person (name, ugla_user) values
-    (name, ugla_user)
+  insert into person (name, ugla_id) values
+    (name, ugla_id)
     returning * into row;
 
   return row;
