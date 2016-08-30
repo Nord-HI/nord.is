@@ -1,7 +1,3 @@
-require('dotenv').config({
-  path: '/custom/path/to/your/env/vars',
-})
-
 export const pgp = require('pg-promise')(/*options*/)
 
 export const initDb = () => pgp({

@@ -30,3 +30,6 @@ script:
   - docker version
   - docker-compose version
   - docker-compose -f docker-compose-prod.yml run test
+
+notifications:
+  email: false

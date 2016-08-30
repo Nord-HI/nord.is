@@ -1,6 +1,5 @@
 {
   "name": "nord.js",
-  "version": "0.3.0",
   "scripts": {
     "postinstall": "npm run build",
     "start": "node start.js",
