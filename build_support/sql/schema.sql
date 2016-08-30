@@ -22,7 +22,7 @@ set search_path = nord, nord_utils, public;
 create table person (
   id               serial not null primary key,
   name             varchar(64) not null,
-  ugla_user        varchar(64) not null,
+  ugla_user        varchar(10) not null unique,
   created_at       timestamp,
   updated_at       timestamp
 );

@@ -2,20 +2,20 @@
 -- Sample Data
 
 insert into person (id, name, ugla_user) values
-  (1, 'Kathryn', 'username'),
-  (2, 'Johnny', 'username'),
-  (3, 'Nancy', 'username'),
-  (4, 'Russell', 'username'),
-  (5, 'Ann', 'username'),
-  (6, 'Joe', 'username'),
-  (7, 'Scott', 'username'),
-  (8, 'David', 'username'),
-  (9, 'Carl', 'username'),
-  (10, 'Jonathan', 'username'),
-  (11, 'Beverly', 'username'),
-  (12, 'Kelly', 'username'),
-  (13, 'Nicholas', 'username'),
-  (14, 'Carol', 'username');
+  (1, 'Kathryn', 'krm1'),
+  (2, 'Johnny', 'trg8'),
+  (3, 'Nancy', 'fgg2'),
+  (4, 'Russell', 'foo3'),
+  (5, 'Ann', 'eih22'),
+  (6, 'Joe', 'jon4'),
+  (7, 'Scott', 'scp8'),
+  (8, 'David', 'mao39'),
+  (9, 'Carl', 'sth28'),
+  (10, 'Jonathan', 'omr5'),
+  (11, 'Beverly', 'aip7'),
+  (12, 'Kelly', 'oso6'),
+  (13, 'Nicholas', 'iss23'),
+  (14, 'Carol', 'thp42t');
 
 alter sequence person_id_seq restart with 15;
 
