@@ -10,7 +10,7 @@ test.before(async () => {
 })
 
 test('ls command: should show the root directory if no directory is provided', async (t) => {
-  const expected = ['README.md', 'secrets']
+  const expected = ['README.md', 'help.txt', 'hjalp.txt', 'secrets']
   const res = await request(server).get('/api/loginTerminal/ls')
   t.true(arraysEqual(res.body, expected))
 })
