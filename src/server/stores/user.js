@@ -1,9 +1,5 @@
-const pgp = require('pg-promise')(/*options*/)
-const db = pgp({
-  database: 'nord_db',
-  user: 'nord',
-  password: 'nord',
-})
+import { pgp, initDb } from './pg'
+const db = initDb()
 
 export const createUser = () =>
   db.any(

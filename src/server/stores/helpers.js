@@ -1,11 +1,7 @@
-const pgp = require('pg-promise')(/*options*/)
+import { pgp, initDb } from './pg'
 const fs = require('fs')
 const path = require('path')
-const db = pgp({
-  database: 'nord_db',
-  user: 'nord',
-  password: 'nord',
-})
+const db = initDb()
 
 export const createDatabase = () => {
   const schemaString = fs.readFileSync(

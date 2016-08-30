@@ -5,6 +5,7 @@
     "postinstall": "npm run build",
     "start": "node start.js",
     "build": "webpack -p --progress --config webpack.production.config.js",
+    "docker-test": "docker-compose run --rm test",
     "test": "NODE_ENV=test ava",
     "test-watch": "NODE_ENV=test ava --watch",
     "clean": "rm build/app.js",
