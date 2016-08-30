@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- Sample Data
 
-insert into person (id, name, ugla_user) values
+insert into person (id, name, ugla_id) values
   (1, 'Kathryn', 'krm1'),
   (2, 'Johnny', 'trg8'),
   (3, 'Nancy', 'fgg2'),

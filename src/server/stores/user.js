@@ -7,7 +7,7 @@ export const createUser = (name, ugluId) =>
 
 export const getUserByUglaId = uglaId =>
   db.one(
-    'select * from person where ugla_user=$1',
+    'select * from person where ugla_id=$1',
     [uglaId]
   )
   .then(user => user)
