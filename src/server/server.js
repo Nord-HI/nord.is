@@ -21,16 +21,16 @@ export default () => {
     .use(api().routes())
     .use(router.allowedMethods())
 
-  // Finally serve index.html
+  // Finally serve index.html, client handles 404.
   app
     .use(async ctx => {
-      await sendFile(ctx, path.resolve(`${__dirname}/../../build/index.html`))
+      await sendFile(ctx, path.resolve(`${__dirname}/../../index.html`))
       if (!ctx.status) ctx.throw(404)
     })
 
   return app
 }
 
-if (!process.env.PRODUCTION & process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV === 'development') {
   startWebpackDevServer()
 }

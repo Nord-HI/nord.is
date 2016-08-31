@@ -2,11 +2,12 @@
   "name": "nord.js",
   "scripts": {
     "postinstall": "npm run build",
-    "start": "node start.js",
+    "start": "NODE_ENV=development node start.js",
+    "start-prod": "NODE_ENV=production node start.js",
     "build": "webpack -p --progress --config webpack.production.config.js",
     "docker-test": "docker-compose run --rm test",
-    "test": "NODE_ENV=test ava",
-    "test-watch": "NODE_ENV=test ava --watch",
+    "test": "docker-compose up",
+    "test-watch": "ava --watch",
     "clean": "rm build/app.js",
     "lint": "eslint --ext \"js\" ."
   },

@@ -8,7 +8,7 @@ module.exports = {
   entry: "./src/client/main",
 
   output: {
-    path: __dirname + "/build/",
+    path: __dirname + "/built",
     filename: "app.js"
   },
 
@@ -19,7 +19,8 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx?$/, exclude: /node_modules/, loader: "babel-loader" },
-      { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader') }
+      { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader') },
+      { test: /\.(png|svg|ico|jpg)$/, loader: 'url-loader?limit=10000' },
     ]
   },
 
