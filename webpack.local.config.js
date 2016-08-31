@@ -11,6 +11,8 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
  *
  * For more information, see: http://webpack.github.io/docs/configuration.html
  */
+
+console.log('dev');
 module.exports = {
 
   // Efficiently evaluate modules with source maps
