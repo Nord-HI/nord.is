@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 /**
  * This is the Webpack configuration file for local development. It contains
@@ -11,8 +12,6 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
  *
  * For more information, see: http://webpack.github.io/docs/configuration.html
  */
-
-console.log('dev');
 module.exports = {
 
   // Efficiently evaluate modules with source maps
@@ -25,19 +24,20 @@ module.exports = {
     "./src/client/main"
   ],
 
-  // This will not actually create a bundle.js file in ./build. It is used
+  // This will not actually create a bundle.js file in ./built. It is used
   // by the dev server for dynamic hot loading.
   output: {
-    path: __dirname + "/build/",
+    path: __dirname + "/built/",
     filename: "app.js",
-    publicPath: "http://localhost:9090/build/"
+    publicPath: "http://localhost:9090/built/"
   },
 
   // Necessary plugins for hot load
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new ExtractTextPlugin('style.css', { allChunks: true })
+    new ExtractTextPlugin('style.css', { allChunks: true }),
+    new HtmlWebpackPlugin({ template: 'index.ejs' })
   ],
 
   // Transform source code using Babel and React Hot Loader
