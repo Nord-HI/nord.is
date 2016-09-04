@@ -1,15 +1,11 @@
-// import test from 'ava'
-// import React from 'react'
-// import { shallow } from 'enzyme'
-//
-// import App from '../App'
-//
-// test('render with container div', t => {
-//   const wrapper = shallow(React.createElement(App))
-//
-//   t.is(wrapper.find('.container').length, 1)
-// })
+import React from 'react'
+import App from '../App'
+import renderer from 'react-test-renderer'
 
-test('unimplemented', () => {
-  expect(1).toBe(1)
+it('should match its last snapshot', () => {
+  const component = renderer.create(
+    <App><span>hello span!</span></App>
+  )
+  const tree = component.toJSON()
+  expect(tree).toMatchSnapshot()
 })
