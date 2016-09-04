@@ -1,11 +1,14 @@
 import * as dbHelpers from '../helpers'
 import { createUser, getUserByUglaId } from '../user'
+import { pgp } from '../pg'
 
 beforeEach(async () => {
   await dbHelpers.dropDb()
   await dbHelpers.createDatabase()
   await dbHelpers.insertDummyData()
 })
+
+afterEach(async () => pgp.end())
 
 test('createUser', async () => {
   const expectedUglaId = 'bar1337'
