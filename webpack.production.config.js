@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 /**
  * This is the Webpack configuration file for production.
@@ -8,12 +9,14 @@ module.exports = {
   entry: "./src/client/main",
 
   output: {
-    path: __dirname + "/built",
-    filename: "app.js"
+    path: __dirname + "/built/",
+    publicPath: "/built/",
+    filename: "app[chunkhash].js"
   },
 
   plugins: [
-    new ExtractTextPlugin('style.css', { allChunks: true })
+    new ExtractTextPlugin('style[contenthash].css', { allChunks: true }),
+    new HtmlWebpackPlugin({ template: 'index.ejs' })
   ],
 
   module: {
