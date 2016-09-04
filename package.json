@@ -2,7 +2,7 @@
   "name": "nord.js",
   "scripts": {
     "postinstall": "npm run build",
-    "start": "NODE_ENV=development node start.js",
+    "start": "NODE_ENV=development nodemon start.js",
     "start-prod": "NODE_ENV=production node start.js",
     "build": "npm run clean && webpack -p --progress --config webpack.production.config.js",
     "docker-test": "ava",
@@ -48,6 +48,7 @@
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "0.9.0",
     "html-webpack-plugin": "2.22.0",
+    "nodemon": "1.10.2",
     "postcss-loader": "^0.6.0",
     "postcss-nested": "^1.0.0",
     "react-addons-test-utils": "^15.0.1",
