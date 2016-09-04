@@ -26,7 +26,7 @@ services:
       - POSTGRES_PASSWORD=nord
       - POSTGRES_DB=nord_db
       - POSTGRES_HOST=db
-    command: npm run docker-test
+    command: npm test
     links: [db]
     volumes:
       - .:/code
