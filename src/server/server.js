@@ -3,6 +3,9 @@ import logger from 'koa-logger'
 import path from 'path'
 import Router from 'koa-router'
 import sendFile from 'koa-sendfile'
+import session from 'koa-generic-session'
+import redisStore from 'koa-redis'
+import convert from 'koa-convert'
 import api from './api'
 import staticAssets from './api/staticAssets'
 import startWebpackDevServer from './startWebpackDevServer'
@@ -14,6 +17,11 @@ export default () => {
   // Middleware
   app
     .use(logger())
+    .use(convert(session({
+      store: redisStore({
+        // Options specified here
+      }),
+    })))
 
   // Routes
   app
