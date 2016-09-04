@@ -9,6 +9,9 @@
     "clean": "rm -rf built",
     "lint": "eslint --ext \"js\" ."
   },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "devDependencies": {
     "autoprefixer": "^6.0.2",
     "babel-eslint": "6.1.2",
