@@ -9,5 +9,9 @@ export default function api() {
     .get('/ping', async ctx => { ctx.body = 'pong' })
     .use(loginTerminal().routes())
 
+  router
+    .post('/login', async ctx => { ctx.body = 'logged in' })
+    .use(loginTerminal().routes())
+
   return router
 }

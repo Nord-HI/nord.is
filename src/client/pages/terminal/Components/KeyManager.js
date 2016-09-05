@@ -51,9 +51,10 @@ export default class KeyManager extends Component {
   }
 
   render() {
-    const { children } = this.props
+    const { children, className } = this.props
     return (
       <span
+        className={className}
         onKeyDown={(event) => this.onKeyDown(event)}
         onKeyUp={(event) => this.onKeyUp(event)}
       >
