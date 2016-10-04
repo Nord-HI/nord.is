@@ -12,7 +12,7 @@ import { introspectionQuery, printSchema } from 'graphql/utilities'
       JSON.stringify(result.errors, null, 2)
     )
   } else {
-    const pathToFile = path.join(__dirname, '../build/schema.json')
+    const pathToFile = path.join(__dirname, './graphql/schema.json')
     const fileDescriptor = fs.openSync(pathToFile, 'w')
     fs.closeSync(fileDescriptor)
     fs.writeFileSync(pathToFile, JSON.stringify(result, null, 2))
@@ -21,6 +21,6 @@ import { introspectionQuery, printSchema } from 'graphql/utilities'
 
 // Save user readable type system shorthand of schema
 fs.writeFileSync(
-  path.join(__dirname, '../build/schema.graphql'),
+  path.join(__dirname, './graphql/schema.graphql'),
   printSchema(schema)
 )

@@ -6,7 +6,7 @@
     "stage-0"
   ],
   "plugins": [
-    "./build/babelRelayPlugin",
+    "./build_support/graphql/babelRelayPlugin",
     "transform-runtime",
     ["resolver", { "resolveDirs": ["src", "node_modules"] }]
   ]
