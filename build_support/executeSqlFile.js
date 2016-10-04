@@ -21,6 +21,6 @@ const db = pgp({
 /* `db.any` executes a querystring and expectes anything to be returned.
     That is, there are no constraints on what should be returned. */
 db.any(schemaString)
-  .then(() => console.info('Successfully executed query'))
-  .catch((err) => console.error(err))
+  .then(() => console.info('Successfully executed query')) // eslint-disable-line no-console
+  .catch((err) => console.error(err))  // eslint-disable-line no-console
   .then(() => pgp.end())

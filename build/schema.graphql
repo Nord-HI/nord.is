@@ -50,6 +50,13 @@ interface Node {
   id: ID!
 }
 
+type Nord implements Node {
+  id: ID!
+  name: String
+  ugla_id: String
+  created_at: String
+}
+
 type PageInfo {
   hasNextPage: Boolean!
   hasPreviousPage: Boolean!
@@ -91,6 +98,7 @@ type RenameTodoPayload {
 
 type Root {
   viewer: User
+  nord(id: String): Nord
   node(id: ID!): Node
 }
 

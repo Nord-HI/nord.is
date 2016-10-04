@@ -1,0 +1,30 @@
+[ignore]
+# Ignore malformed json
+.*/node_modules/config-chain/test/.*\.json
+.*/node_modules/npmconf/test/fixtures/.*\.json
+
+# Duplicate module provider
+.*/node_modules/react-relay/lib/relayUnstableBatchedUpdates.native.js
+
+# Use of non-standard promise method `done`
+.*/node_modules/fbjs/lib/Deferred.js.flow
+
+[include]
+
+[libs]
+
+[options]
+module.system=haste
+
+esproposal.class_static_fields=enable
+esproposal.class_instance_fields=enable
+
+experimental.strict_type_args=true
+
+munge_underscores=true
+
+suppress_type=$FlowIssue
+suppress_type=$FlowFixMe
+suppress_type=$FixMe
+
+suppress_comment= \\(.\\|\n\\)*\\$FlowSuppressError

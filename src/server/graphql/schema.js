@@ -1,8 +1,10 @@
-import { GraphQLObjectType, GraphQLSchema } from 'graphql'
+import { GraphQLObjectType, GraphQLSchema, GraphQLString } from 'graphql'
 import { getViewer } from './database'
 import { GraphQLUser } from './entities/User'
+import { GraphQLNord } from './entities/Nord'
 import { nodeField } from './interfaces'
 import * as todoMutations from './entities/Todo/mutations'
+import { getUserByUglaId } from 'server/stores/user'
 
 const Root = new GraphQLObjectType({
   name: 'Root',
@@ -10,6 +12,15 @@ const Root = new GraphQLObjectType({
     viewer: {
       type: GraphQLUser,
       resolve: () => getViewer(),
+    },
+    nord: {
+      type: GraphQLNord,
+      args: {
+        id: {
+          type: GraphQLString,
+        },
+      },
+      resolve: (_, { id }) => getUserByUglaId(id),
     },
     node: nodeField,
   },
