@@ -26,7 +26,7 @@ services:
       - POSTGRES_PASSWORD=nord
       - POSTGRES_DB=nord_db
       - POSTGRES_HOST=db
-    command: npm test -- --watch
+    command: npm test -- --watchAll
     links: [db]
     volumes:
       - .:/code
