@@ -8,11 +8,16 @@ export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      username: '',
+      currMode: 'bull',
       commands: {
         clear: this.clearHistory.bind(this),
         ls: this.listFiles.bind(this),
         cat: (fileName) => this.catFile(fileName),
         source: this.openLink('https://github.com/Nord-HI/nord.is'),
+        help: this.help.bind(this),
+        hjalp: this.hjalp.bind(this),
+        login: this.login.bind(this),
       },
       history: [],
       prompt: '$ ',
@@ -33,6 +38,14 @@ export default class App extends Component {
   }
 
   onEnterPress() {
+    if (this.state.history[this.state.history.length - 1] === '$ login') {
+      this.getUsername()
+      return
+    }
+    if (this.state.history[this.state.history.length - 2] === '$ login') {
+      this.getPassAndLogin()
+      return
+    }
     const inputText = this.inputNode.value
     const inputArray = inputText.split(' ')
     const input = inputArray[0]
@@ -49,6 +62,25 @@ export default class App extends Component {
       command(arg)
     }
     this.clearInput()
+  }
+
+  getUsername() {
+    const username = this.inputNode.value
+    this.setState({ username })
+    this.addHistory(`${this.state.prompt}${username}`)
+    this.clearInput()
+    this.setState({ prompt: 'password: ' })
+  }
+
+
+  getPassAndLogin() {
+    const password = this.inputNode.value
+    this.addHistory(`${this.state.prompt}${password}`)
+    this.clearInput()
+    this.setState({ prompt: '$ ' })
+    Client.post('api/login', { username: this.state.username, password })
+      .then(res => res.text())
+      .then(() => this.setState({ prompt: `[${this.state.username}] ` }))
   }
 
   clearHistory() {
@@ -84,6 +116,22 @@ export default class App extends Component {
       .then(contents => this.addHistory(contents))
   }
 
+  help() {
+    Client.get('api/loginTerminal/cat?file=help.txt')
+      .then(res => res.text())
+      .then(contents => this.addHistory(contents))
+  }
+
+  hjalp() {
+    Client.get('api/loginTerminal/cat?file=hjalp.txt')
+      .then(res => res.text())
+      .then(contents => this.addHistory(contents))
+  }
+
+  login() {
+    this.setState({ prompt: 'user: ' })
+  }
+
   openLink(url) {
     return () => window.open(url, '_blank')
   }
@@ -114,6 +162,7 @@ export default class App extends Component {
         <p className={styles.currentLine}>
           <span className={styles.prompt}>{this.state.prompt}</span>
           <KeyManager
+            className={styles.inputContainer}
             keyCombinations={this.knownKeyCombinations}
           >
             <input

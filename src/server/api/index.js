@@ -10,6 +10,5 @@ export default function api() {
     .all('/graphql', graphqlServer)
     .use(loginTerminal().routes())
 
-
   return router
 }

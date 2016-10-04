@@ -1,4 +1,4 @@
-import getBabelRelayPlugin from 'babel-relay-plugin';
+const getBabelRelayPlugin = require('babel-relay-plugin');
 
 let babelRelayPlugin = null
 
@@ -14,4 +14,4 @@ if (process.env.NODE_ENV === 'script') {
   })
 }
 
-export default babelRelayPlugin
+module.exports = babelRelayPlugin

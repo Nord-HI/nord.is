@@ -1,15 +1,33 @@
-sudo: false
+sudo: required
 language: node_js
 node_js:
-  - 4
-  - 5
   - 6
-script:
-  - npm test
-  - npm run build
-after_script:
-  - npm run coveralls
+services:
+  - docker
 env:
   global:
+    - DOCKER_VERSION=1.12.1-0~trusty
+    - DOCKER_COMPOSE_VERSION=1.8.0
     - secure: H7Yi0dWwKnnAbGHIQjFnFTDbZy177ghm2VtzV0z9FpAFI5arQZQpE0cIe3glsEawRqXoYSjopLza8oDHRnbYynPj2a7vrQy/duiYFNbTgE4xzXlvZzRMs2D+9De+fMHNjmcsSoEgR9gukwooiN2KYELtQC8tyn/H8T0J3GAGXBM=
     - secure: LcwufGqqrC7aMj88Dwkevu2ugmDWIpvL07gLtk3gMu+xPFTnyXtPNgFOXnOOXSl3tsw5w8y04aJvIWNKWN5xHOSBdAd/T4sNfhqhHh5q8h6vwsww4IH9u3cCsEQburY9tnIxs2qUkcIweijsXWXrAZUTP0sckqgq8fTtKW8JF8k=
+
+before_install:
+  # list docker-engine versions
+  - apt-cache madison docker-engine
+
+  # upgrade docker-engine to specific version
+  - sudo apt-get -o Dpkg::Options::="--force-confnew" install -y docker-engine=${DOCKER_VERSION}
+
+  # reinstall docker-compose at specific version
+  - sudo rm -f /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+script:
+  - docker version
+  - docker-compose version
+  - docker-compose -f docker-compose-prod.yml run test
+
+notifications:
+  email: false

@@ -2,10 +2,6 @@
 -- changes will be applied.
 begin;
 
--- We want to cryptographically hash passwords, therefore create this
--- extension.
-create extension if not exists pgcrypto;
-
 -- Create the schema we are going to use.
 create schema nord;
 
@@ -25,18 +21,16 @@ set search_path = nord, nord_utils, public;
 
 create table person (
   id               serial not null primary key,
-  given_name       varchar(64) not null,
-  family_name      varchar(64),
-  about            text,
+  name             varchar(64) not null,
+  ugla_id           varchar(10) not null unique,
   created_at       timestamp,
   updated_at       timestamp
 );
 
 comment on table person is 'A user of the forum.';
 comment on column person.id is 'The primary key for the person.';
-comment on column person.given_name is 'The person’s first name.';
-comment on column person.family_name is 'The person’s last name.';
-comment on column person.about is 'A short description about the user, written by the user.';
+comment on column person.name is 'The person’s first name.';
+comment on column person.ugla_id is 'Username on ugla.hi.is';
 comment on column person.created_at is 'The time this person was created.';
 comment on column person.updated_at is 'The latest time this person was updated.';
 
@@ -62,30 +56,9 @@ comment on column post.created_at is 'The time this post was created.';
 comment on column post.updated_at is 'The latest time this post was updated.';
 
 -------------------------------------------------------------------------------
--- Private Tables
-
-create table nord_utils.person_account (
-  person_id        int not null primary key,
-  email            varchar not null unique check (email ~* '^.+@.+\..+$'),
-  pass_hash        char(60) not null
-);
-
-comment on table person_account is 'Private information about a person’s account.';
-comment on column person_account.person_id is 'The id of the person associated with this account.';
-comment on column person_account.email is 'The email address of the person.';
-comment on column person_account.pass_hash is 'An opaque hash of the person’s password.';
 
 -------------------------------------------------------------------------------
 -- Query Procedures
-
--- Computes the full name for a person using the person’s `given_name` and a
--- `family_name`.
-create function person_full_name(person) returns varchar as $$
-  select $1.given_name || ' ' || $1.family_name
-$$ language sql
-stable;
-
-comment on function person_full_name(person) is 'A person’s full name including their first and last name.';
 
 -- Fetches and returns the latest post authored by our person.
 create function person_latest_post(person) returns post as $$
@@ -133,30 +106,22 @@ comment on function search_posts(varchar) is 'Returns posts containing a given s
 -- Registers a person in our forum with a few key parameters creating a
 -- `person` row and an associated `person_account` row.
 create function register_person(
-  given_name varchar,
-  family_name varchar,
-  email varchar,
-  password varchar
+  name varchar,
+  ugla_id varchar
 ) returns person as $$
 declare
   row person;
 begin
   -- Insert the person’s public profile data.
-  insert into person (given_name, family_name) values
-    (given_name, family_name)
+  insert into person (name, ugla_id) values
+    (name, ugla_id)
     returning * into row;
-
-  -- Insert the person’s private account data.
-  insert into person_account (person_id, email, pass_hash) values
-    (row.id, email, crypt(password, gen_salt('bf')));
 
   return row;
 end;
 $$ language plpgsql
 strict
 set search_path from current;
-
-comment on function register_person(varchar, varchar, varchar, varchar) is 'Register a person in our forum.';
 
 -------------------------------------------------------------------------------
 -- Triggers

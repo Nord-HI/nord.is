@@ -1,5 +1,11 @@
-FROM node:argon
+FROM node:6.4
 
-mkdir -p /nord/source
-# install application into working directory
-WORKDIR /nord/source
+ENV NPM_CONFIG_LOGLEVEL warn
+
+WORKDIR /code/
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .

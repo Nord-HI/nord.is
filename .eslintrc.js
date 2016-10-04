@@ -19,5 +19,11 @@ module.exports = {
   globals: {
     c: true, // console is aliased to c in server/index.js
     __DEV__: true, // boolean, true if NODE_ENV=DEVELOPEMT
+    test: true, // global provided by jest
+    expect: true, // global provided by jest
+    afterEach: true,
+    beforeEach: true,
+    it: true,
+    describe: true,
   },
 }

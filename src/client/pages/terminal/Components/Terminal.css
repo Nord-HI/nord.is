@@ -18,12 +18,18 @@
 .currentLine {
   margin: 0;
   line-height: 1.2;
+  display: flex;
 }
 
 .prompt {
   color: #00fe00;
   font-family: monospace;
   line-height: 1.2;
+  margin-right: 5px
+}
+
+.inputContainer {
+  flex: 1
 }
 
 .input {
@@ -32,7 +38,7 @@
   margin: 0;
   background: #222;
   color: #00fe00;
-  width: 93%;
+  width: 99%;
   font-family: monospace;
   font-size: 12px;
 }

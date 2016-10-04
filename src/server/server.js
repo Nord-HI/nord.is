@@ -28,10 +28,14 @@ export default () => {
     .use(api().routes())
     .use(router.allowedMethods())
 
-  // Finally serve index.html
+  // Finally serve index.html, client handles 404.
   app
     .use(async ctx => {
-      await sendFile(ctx, path.resolve(`${__dirname}/../../build/index.html`))
+      if (process.env.NODE_ENV === 'production') {
+        await sendFile(ctx, path.resolve(`${__dirname}/../../built/index.html`))
+      } else {
+        await sendFile(ctx, path.resolve(`${__dirname}/../../index.html`))
+      }
       if (!ctx.status) ctx.throw(404)
     })
 
@@ -39,6 +43,6 @@ export default () => {
 }
 
 // Start Webpack dev server if we are in development mode
-if (__DEV__) {
+if (process.env.NODE_ENV === 'development') {
   startWebpackDevServer(5000)
 }
