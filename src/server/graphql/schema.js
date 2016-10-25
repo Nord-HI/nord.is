@@ -4,6 +4,7 @@ import { GraphQLUser } from './entities/User'
 import { GraphQLNord } from './entities/Nord'
 import { nodeField } from './interfaces'
 import * as todoMutations from './entities/Todo/mutations'
+import * as nordMutations from './entities/Nord/mutations'
 import { getUserByUglaId } from 'server/stores/user'
 
 const Root = new GraphQLObjectType({
@@ -35,6 +36,7 @@ const Mutation = new GraphQLObjectType({
     removeCompletedTodos: todoMutations.GraphQLRemoveCompletedTodosMutation,
     removeTodo: todoMutations.GraphQLRemoveTodoMutation,
     renameTodo: todoMutations.GraphQLRenameTodoMutation,
+    addNord: nordMutations.GraphQLAddNord,
   },
 })
 
