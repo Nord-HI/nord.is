@@ -1,3 +1,5 @@
+import { info, error } from 'nordLogger'
+
 export default function startWebpackDevServer() {
   const webpack = require('webpack') // eslint-disable-line global-require
   const WebpackDevServer = require('webpack-dev-server') // eslint-disable-line global-require
@@ -11,9 +13,9 @@ export default function startWebpackDevServer() {
     historyApiFallback: true,
     stats: { colors: true },
   }).listen(9090, 'localhost', (err) => {
-    c.log(`Webpack dev server listening at http://localhost:${9090}`)
+    info(`Webpack dev server listening at http://localhost:${9090}`)
     if (err) {
-      c.error(err)
+      error(err)
     }
   })
 }

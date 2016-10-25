@@ -1,4 +1,5 @@
 import { db } from './pg'
+import { error } from 'nordLogger'
 
 export class Nord {
   constructor(user) {
@@ -11,7 +12,7 @@ export class Nord {
 export const createUser = (name, ugluId) =>
   db.proc('register_person', [name, ugluId])
     .then(createdUser => createdUser)
-    .catch(err => console.error(err)) // eslint-disable-line no-console
+    .catch(err => error(err)) // eslint-disable-line no-console
 
 export const getUserByUglaId = uglaId =>
   db.one(
@@ -19,9 +20,9 @@ export const getUserByUglaId = uglaId =>
     [uglaId]
   )
   .then(user => new Nord(user))
-  .catch(err => console.error(err)) // eslint-disable-line no-console
+  .catch(err => error(err)) // eslint-disable-line no-console
 
 export const getUsers = () =>
   db.many('select * from person')
     .then(user => user)
-    .catch(err => console.error(err)) // eslint-disable-line no-console
+    .catch(err => error(err)) // eslint-disable-line no-console

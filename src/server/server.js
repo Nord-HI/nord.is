@@ -8,7 +8,6 @@ import staticAssets from './api/staticAssets'
 import startWebpackDevServer from './startWebpackDevServer'
 
 // Define globals
-global.c = console
 global.__DEV__ = process.env.NODE_ENV === 'development' // eslint-disable-line no-underscore-dangle
 
 

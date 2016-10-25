@@ -1,9 +1,10 @@
 import startServer from './server'
 import config from './config'
+import { info } from 'nordLogger'
 
 // Start HTTP server
 const server = startServer(config)
 server.listen(
   config.PORT,
-  () => c.log(`Nord server listening at http://localhost:${config.PORT}`)
+  () => info(`Nord server listening at http://localhost:${config.PORT}`)
 )
