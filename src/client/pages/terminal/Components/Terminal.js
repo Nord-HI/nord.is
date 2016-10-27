@@ -9,7 +9,6 @@ export default class App extends Component {
     super(props)
     this.state = {
       username: '',
-      currMode: 'bull',
       commands: {
         clear: this.clearHistory.bind(this),
         ls: this.listFiles.bind(this),
@@ -31,6 +30,7 @@ export default class App extends Component {
 
   componentDidMount() {
     this.inputNode.focus()
+    this.help()
   }
 
   componentDidUpdate() {
@@ -70,6 +70,7 @@ export default class App extends Component {
     this.addHistory(`${this.state.prompt}${username}`)
     this.clearInput()
     this.setState({ prompt: 'password: ' })
+    this.inputNode.type = 'password'
   }
 
 
@@ -79,8 +80,9 @@ export default class App extends Component {
     this.clearInput()
     this.setState({ prompt: '$ ' })
     Client.post('api/login', { username: this.state.username, password })
-      .then(res => res.text())
+      // TODO catch errors
       .then(() => this.setState({ prompt: `[${this.state.username}] ` }))
+      .then(() => { document.location.href = '/' })
   }
 
   clearHistory() {
