@@ -1,17 +1,8 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
 require('dotenv').config()
 
-/**
- * This is the Webpack configuration file for local development. It contains
- * local-specific configuration such as the React Hot Loader, as well as:
- *
- * - The entry point of the application
- * - Where the output file should be
- * - Which loaders to use on what files to properly transpile the source
- *
- * For more information, see: http://webpack.github.io/docs/configuration.html
- */
 module.exports = {
 
   // Efficiently evaluate modules with source maps
@@ -36,7 +27,7 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new ExtractTextPlugin('style.css', { allChunks: true }),
+    new ExtractTextPlugin({filename: 'style.css', allChunks: true }),
     new webpack.DefinePlugin({
       __DEV__: process.env.TIRE === 'DEVELOPMENT'
     }),
@@ -46,21 +37,21 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx?$/, exclude: /node_modules/, loaders: ["react-hot", "babel-loader"] },
-      { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader') },
+      { test: /\.css$/, loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'})},
       { test: /\.(png|svg|ico|jpg)$/, loader: 'url-loader?limit=10000' },
     ]
   },
 
   // Automatically transform files with these extensions
   resolve: {
-    extensions: ['', '.js', '.jsx', '.css'],
-    modulesDirectories: ['node_modules', 'src'],
+    // extensions: ['', '.js', '.jsx', '.css'],
+    modules: [path.resolve(__dirname, "src"), "node_modules"],
   },
 
-  // Additional plugins for CSS post processing using postcss-loader
-  postcss: [
-    require('autoprefixer'), // Automatically include vendor prefixes
-    require('postcss-nested') // Enable nested rules, like in Sass
-  ]
+  // // Additional plugins for CSS post processing using postcss-loader
+  // postcss: [
+  //   require('autoprefixer'), // Automatically include vendor prefixes
+  //   require('postcss-nested') // Enable nested rules, like in Sass
+  // ]
 
 }

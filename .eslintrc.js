@@ -8,14 +8,9 @@ module.exports = {
     'no-unused-vars': [2, { 'args': 'after-used', 'argsIgnorePattern': '^_' }],
     semi: [2, 'never'],
     'react/prop-types': 0,
+    'import/no-unresolved': 0,
   },
-  settings: {
-    'import/resolver': {
-      webpack: {
-        config: 'webpack.local.config.js',
-      },
-    },
-  },
+  settings: {},
   globals: {
     c: true, // console is aliased to c in server/index.js
     __DEV__: true, // boolean, true if NODE_ENV=DEVELOPEMT

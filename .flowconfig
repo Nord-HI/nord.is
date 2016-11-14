@@ -31,3 +31,4 @@ suppress_comment= \\(.\\|\n\\)*\\$FlowSuppressError
 
 module.name_mapper='^client\/\(.*\)$' -> '<PROJECT_ROOT>/src/client/\1'
 module.name_mapper='^server\/\(.*\)$' -> '<PROJECT_ROOT>/src/server/\1'
+module.name_mapper='^common\/\(.*\)$' -> '<PROJECT_ROOT>/src/common/\1'
