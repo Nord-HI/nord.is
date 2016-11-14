@@ -1,6 +1,6 @@
 import startServer from './server'
 import config from './config'
-import { info } from 'nordLogger'
+import { info } from 'common/nordLogger'
 
 // Start HTTP server
 const server = startServer(config)

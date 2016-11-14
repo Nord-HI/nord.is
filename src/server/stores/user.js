@@ -1,5 +1,5 @@
 import { db } from './pg'
-import { error } from 'nordLogger'
+import { error } from 'common/nordLogger'
 
 export class Nord {
   constructor(user) {
