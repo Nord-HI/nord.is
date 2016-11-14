@@ -28,3 +28,6 @@ suppress_type=$FlowFixMe
 suppress_type=$FixMe
 
 suppress_comment= \\(.\\|\n\\)*\\$FlowSuppressError
+
+module.name_mapper='^client\/\(.*\)$' -> '<PROJECT_ROOT>/src/client/\1'
+module.name_mapper='^server\/\(.*\)$' -> '<PROJECT_ROOT>/src/server/\1'

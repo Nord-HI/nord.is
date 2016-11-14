@@ -5,7 +5,6 @@ import Relay from 'react-relay'
 import { Router, Route, IndexRoute, browserHistory, applyRouterMiddleware } from 'react-router'
 import useRelay from 'react-router-relay'
 import App from 'client/common/components/App'
-import LoginPage from 'client/pages/login/page'
 import RelayTodo from 'client/pages/relayTodo'
 import TodoList from 'client/pages/relayTodo/TodoList'
 import PingPage from 'client/pages/ping/page'
@@ -26,7 +25,7 @@ ReactDOM.render(
     render={applyRouterMiddleware(useRelay)}
   >
     <Route path="/" component={App}>
-      <IndexRoute component={LoginPage} />
+      <IndexRoute component={Terminal} />
       <Route path="home" component={RelayTodo} queries={ViewerQueries}>
         <IndexRoute
           component={TodoList}
@@ -39,7 +38,6 @@ ReactDOM.render(
           queries={ViewerQueries}
         />
       </Route>
-      <Route path="terminal" component={Terminal} />
       <Route path="ping" component={PingPage} />
       <Route path="*" component={GenericNotFound} />
     </Route>

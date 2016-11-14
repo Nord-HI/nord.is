@@ -2,7 +2,7 @@
   "name": "nord.js",
   "scripts": {
     "postinstall": "npm run build",
-    "start": "DEBUG=app:error,app:info,app:log NODE_ENV=development nodemon start.js",
+    "start": "DEBUG=app:error,app:info,app:log NODE_ENV=development nodemon --ignore 'src/client/*' start.js",
     "start-prod": "NODE_ENV=production node start.js",
     "build": "npm run clean && webpack -p --progress --config webpack.production.config.js",
     "test": "jest",
@@ -60,6 +60,7 @@
     "graphql": "0.6.2",
     "graphql-relay": "0.4.2",
     "isomorphic-fetch": "^2.2.1",
+    "jsonwebtoken": "^7.1.9",
     "koa": "2.0.0",
     "koa-convert": "1.2.0",
     "koa-graphql": "0.5.4",

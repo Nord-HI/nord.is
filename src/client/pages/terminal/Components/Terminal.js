@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styles from './Terminal.css'
 import KeyManager from './KeyManager'
 import Client from 'client/utils/Client'
+import { error } from 'nordLogger'
 
 export default class App extends Component {
 
@@ -9,7 +10,6 @@ export default class App extends Component {
     super(props)
     this.state = {
       username: '',
-      currMode: 'bull',
       commands: {
         clear: this.clearHistory.bind(this),
         ls: this.listFiles.bind(this),
@@ -31,6 +31,7 @@ export default class App extends Component {
 
   componentDidMount() {
     this.inputNode.focus()
+    this.help()
   }
 
   componentDidUpdate() {
@@ -42,10 +43,12 @@ export default class App extends Component {
       this.getUsername()
       return
     }
+
     if (this.state.history[this.state.history.length - 2] === '$ login') {
       this.getPassAndLogin()
       return
     }
+
     const inputText = this.inputNode.value
     const inputArray = inputText.split(' ')
     const input = inputArray[0]
@@ -70,17 +73,22 @@ export default class App extends Component {
     this.addHistory(`${this.state.prompt}${username}`)
     this.clearInput()
     this.setState({ prompt: 'password: ' })
+    this.inputNode.type = 'password'
   }
 
 
   getPassAndLogin() {
     const password = this.inputNode.value
-    this.addHistory(`${this.state.prompt}${password}`)
+    const { prompt, username } = this.state
+
+    this.addHistory(`${prompt}${password}`)
     this.clearInput()
     this.setState({ prompt: '$ ' })
-    Client.post('api/login', { username: this.state.username, password })
-      .then(res => res.text())
-      .then(() => this.setState({ prompt: `[${this.state.username}] ` }))
+
+    Client.post('api/login', { username, password })
+      .then(res => { console.log('yee', res) })
+      .then(() => this.setState({ prompt: `[${username}] ` }))
+      .catch(e => error('Api login error', e))
   }
 
   clearHistory() {
