@@ -5,7 +5,7 @@ import Router from 'koa-router'
 import sendFile from 'koa-sendfile'
 import api from './api'
 import staticAssets from './api/staticAssets'
-import startWebpackDevServer from './startWebpackDevServer'
+import startWebpackDevServer from '../../webpack/startWebpackDevServer'
 
 // Define globals
 global.__DEV__ = process.env.NODE_ENV === 'development' // eslint-disable-line no-underscore-dangle
