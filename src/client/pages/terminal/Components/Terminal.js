@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styles from './Terminal.css'
 import KeyManager from './KeyManager'
 import Client from 'client/utils/Client'
-import { error } from 'nordLogger'
+import { error } from 'common/nordLogger'
 
 export default class App extends Component {
 

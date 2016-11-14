@@ -1,4 +1,4 @@
-import { info, error } from 'nordLogger'
+import { info, error } from 'common/nordLogger'
 
 export default function startWebpackDevServer() {
   const webpack = require('webpack') // eslint-disable-line global-require
