@@ -1,22 +1,26 @@
 import fetch from 'isomorphic-fetch'
 
-const sendRequest = (url, method, body) => (
-  fetch(url, {
-    method,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  })
-)
-
 class Client {
   get(url) {
-    return sendRequest(url, 'GET')
+    return fetch(url, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      credentials: 'same-origin',
+    })
   }
   post(url, body) {
-    return sendRequest(url, 'POST', body)
+    return fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      credentials: 'same-origin',
+      body: JSON.stringify(body),
+    })
   }
 }
 

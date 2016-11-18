@@ -12,7 +12,7 @@ export class Nord {
 export const createUser = (name, ugluId) =>
   db.proc('register_person', [name, ugluId])
     .then(createdUser => createdUser)
-    .catch(err => error(err)) // eslint-disable-line no-console
+    .catch(err => error(err))
 
 export const getUserByUglaId = uglaId =>
   db.one(
@@ -20,9 +20,9 @@ export const getUserByUglaId = uglaId =>
     [uglaId]
   )
   .then(user => new Nord(user))
-  .catch(err => error(err)) // eslint-disable-line no-console
+  .catch(err => error(err))
 
 export const getUsers = () =>
   db.many('select * from person')
     .then(user => user)
-    .catch(err => error(err)) // eslint-disable-line no-console
+    .catch(err => error(err))

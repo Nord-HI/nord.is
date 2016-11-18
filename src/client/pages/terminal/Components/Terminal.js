@@ -86,6 +86,7 @@ export default class App extends Component {
     this.setState({ prompt: '$ ' })
 
     Client.post('api/login', { username, password })
+      .then(res => res.json())
       .then(res => { console.log('yee', res) })
       .then(() => this.setState({ prompt: `[${username}] ` }))
       .catch(e => error('Api login error', e))

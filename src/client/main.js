@@ -14,7 +14,9 @@ import ViewerQueries from 'client/pages/relayTodo/queries/ViewerQueries'
 import 'client/common/base.css'
 
 Relay.injectNetworkLayer(
-  new Relay.DefaultNetworkLayer('/api/graphql')
+  new Relay.DefaultNetworkLayer('/api/graphql', {
+    credentials: 'same-origin',
+  })
 )
 
 // Render the router
