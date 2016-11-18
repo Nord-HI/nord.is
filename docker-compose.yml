@@ -18,16 +18,18 @@ services:
       - /db
     expose:
       - 5432
+    ports:
+      - "5432:5432"
 
-  test:
-    build: .
-    environment:
-      - POSTGRES_USER=nord
-      - POSTGRES_PASSWORD=nord
-      - POSTGRES_DB=nord_db
-      - POSTGRES_HOST=db
-    command: npm test -- --watchAll
-    links: [db]
-    volumes:
-      - .:/code
-      - /code/node_modules
+  # test:
+  #   build: .
+  #   environment:
+  #     - POSTGRES_USER=nord
+  #     - POSTGRES_PASSWORD=nord
+  #     - POSTGRES_DB=nord_db
+  #     - POSTGRES_HOST=db
+  #   command: npm test -- --watchAll
+  #   links: [db]
+  #   volumes:
+  #     - .:/code
+  #     - /code/node_modules

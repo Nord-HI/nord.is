@@ -1,5 +1,6 @@
 import Koa from 'koa'
 import logger from 'koa-logger'
+import bodyParser from 'koa-bodyparser'
 import path from 'path'
 import Router from 'koa-router'
 import sendFile from 'koa-sendfile'
@@ -10,16 +11,19 @@ import startWebpackDevServer from '../../webpack/startWebpackDevServer'
 // Define globals
 global.__DEV__ = process.env.NODE_ENV === 'development' // eslint-disable-line no-underscore-dangle
 
-
 export default () => {
   const app = new Koa()
   const router = new Router()
 
-  // Middleware
+  // Dev Middlewares
   if (__DEV__) {
     app
       .use(logger())
   }
+
+  // Middlewares
+  app
+    .use(bodyParser())
 
   // Routes
   app
