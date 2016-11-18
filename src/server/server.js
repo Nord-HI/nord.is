@@ -1,9 +1,11 @@
 import Koa from 'koa'
 import logger from 'koa-logger'
 import bodyParser from 'koa-bodyparser'
+import cookieParser from 'koa-cookie'
 import path from 'path'
 import Router from 'koa-router'
 import sendFile from 'koa-sendfile'
+import jwtResolver from './middleware/jwtResolver'
 import api from './api'
 import staticAssets from './api/staticAssets'
 import startWebpackDevServer from '../../webpack/startWebpackDevServer'
@@ -24,6 +26,8 @@ export default () => {
   // Middlewares
   app
     .use(bodyParser())
+    .use(cookieParser())
+    .use(jwtResolver({ secret: 'shhhhh', cookie: 'session' }))
 
   // Routes
   app

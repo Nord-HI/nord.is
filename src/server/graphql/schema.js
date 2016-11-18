@@ -21,7 +21,10 @@ const Root = new GraphQLObjectType({
           type: GraphQLString,
         },
       },
-      resolve: (_, { id }) => getUserByUglaId(id),
+      resolve: (parentValue, args, ctx) => {
+        console.log('ctx', ctx.state.user)
+        return getUserByUglaId(args.id)
+      },
     },
     node: nodeField,
   },

@@ -6,11 +6,9 @@ export default async function login(ctx) {
 
   const user = await getUserByUglaId(username)
 
-  const token = jwt.sign({
-    username,
-    password,
-    exp: Math.floor(Date.now() / 1000) + (60 * 60),
-  }, 'shhhhh')
+  const token = jwt.sign(user, 'shhhhh', {
+    expiresIn: '7d',
+  })
 
   ctx.body = { user }
   ctx.cookies.set('session', token)
