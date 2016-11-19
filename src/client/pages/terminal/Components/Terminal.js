@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import styles from './Terminal.css'
 import KeyManager from './KeyManager'
 import Client from 'client/utils/Client'
-import { error } from 'common/nordLogger'
 
-export default class App extends Component {
+export default class Terminal extends Component {
 
   constructor(props) {
     super(props)
@@ -78,19 +77,23 @@ export default class App extends Component {
   }
 
 
-  getPassAndLogin() {
+  async getPassAndLogin() {
     const password = this.inputNode.value
     const { prompt, username } = this.state
 
     this.addHistory(`${prompt}${password}`)
     this.clearInput()
     this.setState({ prompt: '$ ' })
+    this.inputNode.type = 'text'
 
-    Client.post('api/login', { username, password })
-      .then(res => res.json())
-      .then(res => { console.log('yee', res) })
-      .then(() => this.setState({ prompt: `[${username}] ` }))
-      .catch(e => error('Api login error', e))
+    const res = await Client.post('api/login', { username, password })
+    const jsonRes = await res.json()
+
+    if (res.status === 401) {
+      this.addHistory(`login: no user found with id ${username}`)
+    } else {
+      this.context.router.push('/')
+    }
   }
 
   clearHistory() {
@@ -200,4 +203,9 @@ export default class App extends Component {
       </div>
     )
   }
+}
+
+// Needed to add the router to reacts context.
+Terminal.contextTypes = {
+  router: React.PropTypes.object.isRequired,
 }
