@@ -11,7 +11,7 @@ export default function api() {
     .get('/healthy', async ctx => { ctx.body = 'ok' })
     .all('/graphql', graphqlServer)
     .post('/login', login)
-    .get('/logout', logout)
+    .all('/logout', logout)
     .use(loginTerminal().routes())
 
   return router
