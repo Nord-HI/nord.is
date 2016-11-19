@@ -7,11 +7,7 @@ export default function api() {
   const router = new Router({ prefix: '/api' })
 
   router
-    // No idea why jwt middleware breaks /ping
-    .get('/ping', async ctx => {
-      // console.log('ping', ctx.state.user)
-      ctx.body = 'pong'
-    })
+    .get('/ping', async ctx => { ctx.body = 'pong' })
     .all('/graphql', graphqlServer)
     .post('/login', login)
     .use(loginTerminal().routes())
