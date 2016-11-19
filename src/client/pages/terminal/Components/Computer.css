@@ -126,3 +126,20 @@
   background-size: 159%;
   background-position: 46% 41%;
 }
+
+@media(max-width: 480px) {
+  .bottomDecor { display: none; }
+  .bodyDecor { display: none; }
+  .computerContainer { width: auto; height: auto; }
+  .screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 10px;
+    margin: 0;
+    border-radius: 0;
+    height: 100%;
+    width: 100%;
+    align-items: flex-start;
+  }
+}

@@ -27,6 +27,7 @@ export default class App extends Component {
       ['ctrl+k', () => this.clearHistory()],
       ['ctrl+c', () => this.sigterm()],
     ]
+    this.inputNodeWidth = 0
   }
 
   componentDidMount() {
@@ -98,6 +99,8 @@ export default class App extends Component {
 
   clearInput() {
     this.inputNode.value = ''
+    this.inputNodeWidth = 0
+    this.inputNode.style.width = `${this.inputNodeWidth}px`
   }
 
   scrollToBottom() {
@@ -157,6 +160,17 @@ export default class App extends Component {
     this.inputNode.focus()
   }
 
+  handleKeyPress(e) {
+    if (e.key === 'Backspace') {
+      this.inputNodeWidth = (this.inputNodeWidth > 0) ? this.inputNodeWidth -= 7.2 : 0
+      this.inputNode.style.width = `${this.inputNodeWidth}px`
+    } else if (e.key === 'Enter') {
+      // Do nothing
+    } else {
+      this.inputNode.style.width = `${this.inputNodeWidth += 7.2}px`
+    }
+  }
+
   render() {
     const output = this.state.history.map((op, i) => (
       <pre key={i} className={styles.output}>{op}</pre>
@@ -168,7 +182,7 @@ export default class App extends Component {
         onClick={() => this.handleClick()}
       >
         {output}
-        <p className={styles.currentLine}>
+        <div className={styles.currentLine}>
           <span className={styles.prompt}>{this.state.prompt}</span>
           <KeyManager
             className={styles.inputContainer}
@@ -178,9 +192,11 @@ export default class App extends Component {
               className={styles.input}
               type="text"
               ref={(node) => { this.inputNode = node }}
+              onKeyDown={e => this.handleKeyPress(e)}
             />
           </KeyManager>
-        </p>
+          <div className={styles.caret}></div>
+        </div>
       </div>
     )
   }
