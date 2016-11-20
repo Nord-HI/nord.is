@@ -13,7 +13,9 @@ module.exports = {
   settings: {},
   globals: {
     c: true, // console is aliased to c in server/index.js
-    __DEV__: true, // boolean, true if NODE_ENV=DEVELOPEMT
+    __DEV__: true, // boolean, true if NODE_ENV=development
+    __PROD__: true, // boolean, true if NODE_ENV=production
+    __NORD_DATA__: true // global var injected into index.html. Available anywhere on client.
     test: true, // global provided by jest
     expect: true, // global provided by jest
     afterEach: true,

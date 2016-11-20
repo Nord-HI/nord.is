@@ -83,8 +83,8 @@ export default class Terminal extends Component {
 
     this.addHistory(`${prompt}${password}`)
     this.clearInput()
-    this.setState({ prompt: '$ ' })
     this.inputNode.type = 'text'
+    this.setState({ prompt: '$ ' })
 
     const res = await Client.post('api/login', { username, password })
     const jsonRes = await res.json()
