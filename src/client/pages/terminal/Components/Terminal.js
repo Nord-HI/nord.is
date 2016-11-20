@@ -87,7 +87,7 @@ export default class Terminal extends Component {
     this.setState({ prompt: '$ ' })
 
     const res = await Client.post('api/login', { username, password })
-    const jsonRes = await res.json()
+    __NORD_DATA__ = await res.json()
 
     if (res.status === 401) {
       this.addHistory(`login: no user found with id ${username}`)

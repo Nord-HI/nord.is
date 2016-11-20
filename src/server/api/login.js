@@ -12,7 +12,7 @@ export default async function login(ctx) {
       expiresIn: '7d',
     })
 
-    ctx.body = { user }
+    ctx.body = { user, isAuthenticated: true }
     ctx.cookies.set('session', token)
   } catch (err) {
     if (err instanceof pgp.errors.QueryResultError) {
