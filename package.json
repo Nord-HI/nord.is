@@ -4,7 +4,7 @@
     "postinstall": "npm run build",
     "start": "DEBUG=app:error,app:info,app:log NODE_ENV=development nodemon --ignore 'src/client/*' start.js",
     "start-prod": "NODE_ENV=production node start.js",
-    "build": "npm run clean && webpack -p --progress --config webpack.production.config.js",
+    "build": "NODE_ENV=production npm run clean && webpack -p --progress --config webpack/webpack.production.config.js",
     "test": "jest",
     "update-schema": "NODE_ENV=script node build_support/updateSchemaStart.js",
     "clean": "rm -rf built",

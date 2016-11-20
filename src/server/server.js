@@ -46,11 +46,7 @@ export default () => {
       } else {
         const htmlStr = await renderEjs(
           `${__dirname}/../../index.ejs`,
-          {
-            payload: `__NORD_DATA__ = ${JSON.stringify(ctx.state)}`,
-            scriptPath: '/built/app.js',
-            stylesPath: '/built/style.css',
-          },
+          { payload: `__NORD_DATA__ = ${JSON.stringify(ctx.state)}` },
         )
 
         ctx.body = htmlStr
