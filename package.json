@@ -25,7 +25,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.5.2",
     "babel-relay-plugin": "0.9.2",
-    "css-loader": "^0.18.0",
+    "css-loader": "^0.26.0",
     "eslint": "^2.9.0",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-import-resolver-webpack": "0.4.0",
@@ -77,9 +77,9 @@
     "pg-promise": "5.1.2",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
+    "react-hot-loader": "^3.0.0-beta.6",
     "react-relay": "0.9.2",
     "react-router": "^2.0.0",
-    "react-router-relay": "0.13.3",
-    "superagent": "^2.0.0"
+    "react-router-relay": "0.13.3"
   }
 }

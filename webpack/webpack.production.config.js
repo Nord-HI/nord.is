@@ -10,7 +10,7 @@ module.exports = {
   entry: "./src/client/main",
 
   output: {
-    path: __dirname + "/built/",
+    path: path.join(__dirname, '../', '/built/'),
     publicPath: "/built/",
     filename: "app[chunkhash].js"
   },
@@ -19,8 +19,8 @@ module.exports = {
     new ExtractTextPlugin({filename: 'style[contenthash].css', allChunks: true }),
     new HtmlWebpackPlugin({ template: 'index.ejs' }),
     new webpack.LoaderOptionsPlugin({
-       test: /\.css/, // may apply this only for some modules
-       options: { postcss: [require('autoprefixer'), require('postcss-nested')] },
+      test: /\.css/, // may apply this only for some modules
+      options: { postcss: [require('autoprefixer'), require('postcss-nested')] },
      })
   ],
 

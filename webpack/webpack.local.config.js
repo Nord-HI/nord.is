@@ -28,7 +28,7 @@ module.exports = {
   ],
   module: {
     loaders: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loaders: ["react-hot", "babel-loader"] },
+      { test: /\.jsx?$/, exclude: /node_modules/, loaders: ["babel-loader"] },
       { test: /\.css$/, loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'})},
       { test: /\.(png|svg|ico|jpg)$/, loader: 'url-loader?limit=10000' },
     ]
