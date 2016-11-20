@@ -6,6 +6,8 @@ export default async function login(ctx) {
   const { username, password } = ctx.request.body
 
   try {
+    /* TODO: Do LDAP HI server hit with password to
+       ensure the user typed ir the right password */
     const user = await getUserByUglaId(username)
 
     const token = jwt.sign(user, 'shhhhh', {
