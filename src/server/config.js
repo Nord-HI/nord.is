@@ -1,5 +1,7 @@
 require('dotenv').config()
 
+const { PORT } = process.env
+
 export default {
-  PORT: process.env.PORT || 8080,
+  PORT: PORT || 8080,
 }

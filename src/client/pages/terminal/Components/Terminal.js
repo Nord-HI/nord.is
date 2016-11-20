@@ -3,7 +3,7 @@ import styles from './Terminal.css'
 import KeyManager from './KeyManager'
 import Client from 'client/utils/Client'
 
-export default class App extends Component {
+export default class Terminal extends Component {
 
   constructor(props) {
     super(props)
@@ -26,6 +26,7 @@ export default class App extends Component {
       ['ctrl+k', () => this.clearHistory()],
       ['ctrl+c', () => this.sigterm()],
     ]
+    this.inputNodeWidth = 0
   }
 
   componentDidMount() {
@@ -42,10 +43,12 @@ export default class App extends Component {
       this.getUsername()
       return
     }
+
     if (this.state.history[this.state.history.length - 2] === '$ login') {
       this.getPassAndLogin()
       return
     }
+
     const inputText = this.inputNode.value
     const inputArray = inputText.split(' ')
     const input = inputArray[0]
@@ -74,15 +77,23 @@ export default class App extends Component {
   }
 
 
-  getPassAndLogin() {
+  async getPassAndLogin() {
     const password = this.inputNode.value
-    this.addHistory(`${this.state.prompt}${password}`)
+    const { prompt, username } = this.state
+
+    this.addHistory(`${prompt}${password}`)
     this.clearInput()
+    this.inputNode.type = 'text'
     this.setState({ prompt: '$ ' })
-    Client.post('api/login', { username: this.state.username, password })
-      // TODO catch errors
-      .then(() => this.setState({ prompt: `[${this.state.username}] ` }))
-      .then(() => { document.location.href = '/' })
+
+    const res = await Client.post('api/login', { username, password })
+    __NORD_DATA__ = await res.json()
+
+    if (res.status === 401) {
+      this.addHistory(`login: no user found with id ${username}`)
+    } else {
+      this.context.router.push('/')
+    }
   }
 
   clearHistory() {
@@ -91,6 +102,8 @@ export default class App extends Component {
 
   clearInput() {
     this.inputNode.value = ''
+    this.inputNodeWidth = 0
+    this.inputNode.style.width = `${this.inputNodeWidth}px`
   }
 
   scrollToBottom() {
@@ -150,6 +163,17 @@ export default class App extends Component {
     this.inputNode.focus()
   }
 
+  handleKeyPress(e) {
+    if (e.key === 'Backspace') {
+      this.inputNodeWidth = (this.inputNodeWidth > 0) ? this.inputNodeWidth -= 7.2 : 0
+      this.inputNode.style.width = `${this.inputNodeWidth}px`
+    } else if (e.key === 'Enter') {
+      // Do nothing
+    } else {
+      this.inputNode.style.width = `${this.inputNodeWidth += 7.2}px`
+    }
+  }
+
   render() {
     const output = this.state.history.map((op, i) => (
       <pre key={i} className={styles.output}>{op}</pre>
@@ -161,7 +185,7 @@ export default class App extends Component {
         onClick={() => this.handleClick()}
       >
         {output}
-        <p className={styles.currentLine}>
+        <div className={styles.currentLine}>
           <span className={styles.prompt}>{this.state.prompt}</span>
           <KeyManager
             className={styles.inputContainer}
@@ -171,10 +195,17 @@ export default class App extends Component {
               className={styles.input}
               type="text"
               ref={(node) => { this.inputNode = node }}
+              onKeyDown={e => this.handleKeyPress(e)}
             />
           </KeyManager>
-        </p>
+          <div className={styles.caret}></div>
+        </div>
       </div>
     )
   }
+}
+
+// Needed to add the router to reacts context.
+Terminal.contextTypes = {
+  router: React.PropTypes.object.isRequired,
 }

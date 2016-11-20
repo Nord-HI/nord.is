@@ -1,5 +1,5 @@
 import * as dbHelpers from '../helpers'
-import { createUser, getUserByUglaId } from '../user'
+import { createUser, getUserByUglaId, getUsers } from '../user'
 import { pgp } from '../pg'
 
 beforeEach(async () => {
@@ -21,4 +21,10 @@ test('getUserByUglaId', async () => {
   await createUser('foobar', expectedUglaId)
   const actualUser = await getUserByUglaId(expectedUglaId)
   expect(actualUser.ugla_id).toBe(expectedUglaId)
+})
+
+test('getUsers', async () => {
+  await createUser('foobar', 'foo123')
+  const users = await getUsers()
+  expect(users.length).toBeGreaterThan(0)
 })
